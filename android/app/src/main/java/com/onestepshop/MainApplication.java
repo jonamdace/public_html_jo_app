@@ -3,9 +3,8 @@ package com.onestepshop;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.devfd.RNGeocoder.RNGeocoderPackage;
-import com.sbugert.rnadmob.RNAdMobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.devfd.RNGeocoder.RNGeocoderPackage;
 import com.remobile.splashscreen.RCTSplashScreenPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -28,7 +27,6 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new RNGeocoderPackage(),
-            new RNAdMobPackage(),
             new VectorIconsPackage(),
             new RCTSplashScreenPackage(MainActivity.activity, true)
       );

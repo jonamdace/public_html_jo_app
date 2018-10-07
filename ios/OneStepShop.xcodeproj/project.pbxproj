@@ -53,7 +53,6 @@
 		F7C6C73419F249B0AF27CFF0 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C92CB393F2AF42E0B408D68C /* Octicons.ttf */; };
 		D200619C6D0F46EEB3120A30 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B0B3BEDDF14149069BC32D96 /* SimpleLineIcons.ttf */; };
 		F58F396A06A2431892AF48C4 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C502996FEDA453BBB5CD488 /* Zocial.ttf */; };
-		C894CE2F16F34FB0BD424C0A /* libRNAdMobManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BE7D1BA81740A5B4D8D00C /* libRNAdMobManager.a */; };
 		8200DCC665454F8FB98A1F9B /* libRNGeocoder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66473E2960B240A7A3E892FD /* libRNGeocoder.a */; };
 /* End PBXBuildFile section */
 
@@ -378,8 +377,6 @@
 		C92CB393F2AF42E0B408D68C /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		B0B3BEDDF14149069BC32D96 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		5C502996FEDA453BBB5CD488 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		95257ABB9B814CFDBBBF69F7 /* RNAdMobManager.xcodeproj */ = {isa = PBXFileReference; name = "RNAdMobManager.xcodeproj"; path = "../node_modules/react-native-admob/ios/RNAdMobManager.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		46BE7D1BA81740A5B4D8D00C /* libRNAdMobManager.a */ = {isa = PBXFileReference; name = "libRNAdMobManager.a"; path = "libRNAdMobManager.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		061042EE1C0D4171AD6058AF /* RNGeocoder.xcodeproj */ = {isa = PBXFileReference; name = "RNGeocoder.xcodeproj"; path = "../node_modules/react-native-geocoder/ios/RNGeocoder.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		66473E2960B240A7A3E892FD /* libRNGeocoder.a */ = {isa = PBXFileReference; name = "libRNGeocoder.a"; path = "libRNGeocoder.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
@@ -411,7 +408,6 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				B7A52D211B9B4A808F774207 /* libRCTSplashScreen.a in Frameworks */,
 				ABF9299383834FBEBAD8BBDC /* libRNVectorIcons.a in Frameworks */,
-				C894CE2F16F34FB0BD424C0A /* libRNAdMobManager.a in Frameworks */,
 				8200DCC665454F8FB98A1F9B /* libRNGeocoder.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -601,7 +597,6 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				C69FCEE7B55342049DC35E5E /* RCTSplashScreen.xcodeproj */,
 				7992CF82E4FF44FD913B6CB4 /* RNVectorIcons.xcodeproj */,
-				95257ABB9B814CFDBBBF69F7 /* RNAdMobManager.xcodeproj */,
 				061042EE1C0D4171AD6058AF /* RNGeocoder.xcodeproj */,
 			);
 			name = Libraries;
@@ -1267,16 +1262,11 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OneStepShop.app/OneStepShop";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/@remobile/react-native-splashscreen/ios/RCTSplashScreen",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-admob/ios",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/ios/RNGeocoder",
 				);
 			};
@@ -1299,16 +1289,11 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OneStepShop.app/OneStepShop";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/@remobile/react-native-splashscreen/ios/RCTSplashScreen",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-admob/ios",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/ios/RNGeocoder",
 				);
 			};
@@ -1334,7 +1319,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/@remobile/react-native-splashscreen/ios/RCTSplashScreen",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-admob/ios",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/ios/RNGeocoder",
 				);
 			};
@@ -1359,7 +1343,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/@remobile/react-native-splashscreen/ios/RCTSplashScreen",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-admob/ios",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/ios/RNGeocoder",
 				);
 			};
@@ -1390,16 +1373,11 @@
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/@remobile/react-native-splashscreen/ios/RCTSplashScreen",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-admob/ios",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/ios/RNGeocoder",
 				);
 			};
@@ -1430,16 +1408,11 @@
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/@remobile/react-native-splashscreen/ios/RCTSplashScreen",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-admob/ios",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/ios/RNGeocoder",
 				);
 			};
@@ -1469,16 +1442,11 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/@remobile/react-native-splashscreen/ios/RCTSplashScreen",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-admob/ios",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/ios/RNGeocoder",
 				);
 			};
@@ -1508,16 +1476,11 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/@remobile/react-native-splashscreen/ios/RCTSplashScreen",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-admob/ios",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/ios/RNGeocoder",
 				);
 			};
