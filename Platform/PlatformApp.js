@@ -18,7 +18,7 @@ import HomeScreen from "./Templates/HomeScreen";
 import ForgotPassword from "./Templates/ForgotPassword";
 
 
-import Dashboard from "./Templates/Dashboard";
+//import Dashboard from "./Templates/Dashboard";
 import DrawerMenu from "./Component/menu/DrawerMenu";
 
 const AuthNavigator = createStackNavigator({
@@ -74,7 +74,7 @@ const AuthNavigator = createStackNavigator({
 
 const AppNavigator = createDrawerNavigator(
     {
-        Dashboard: { screen: Dashboard },
+        Dashboard: { screen: HomeScreen },
     }, 
     {
         contentComponent: DrawerMenu,
