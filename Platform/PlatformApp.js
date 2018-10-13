@@ -16,12 +16,14 @@ import Login from "./Templates/Login";
 import Signup from "./Templates/Signup";
 import HomeScreen from "./Templates/HomeScreen";
 import ForgotPassword from "./Templates/ForgotPassword";
+import AuthLoadingScreen from "./Templates/AuthLoadingScreen";
 
-
-//import Dashboard from "./Templates/Dashboard";
+import MyProfile from "./Templates/MyProfile";
 import DrawerMenu from "./Component/menu/DrawerMenu";
 
-const AuthNavigator = createStackNavigator({
+
+
+const AuthStack = createStackNavigator({
         HomeScreen: {
             screen: HomeScreen,
             navigationOptions: ({ navigation }) => ({
@@ -72,24 +74,25 @@ const AuthNavigator = createStackNavigator({
     }
 );
 
-const AppNavigator = createDrawerNavigator(
+const AppStack = createDrawerNavigator(
     {
-        Dashboard: { screen: HomeScreen },
+        MyProfile: { screen: MyProfile },
     }, 
     {
         contentComponent: DrawerMenu,
         drawerWidth: wp('80%'),
-        initialRouteName: 'Dashboard'
+        initialRouteName: 'MyProfile'
     }
 );
 
 const SwitchNavigator = createSwitchNavigator(
   {
-    Auth: AuthNavigator,
-    App: AppNavigator
+    AuthLoading: AuthLoadingScreen,
+    Auth: AuthStack,
+    App: AppStack
   },
   {
-    initialRouteName: 'Auth'
+    initialRouteName: 'AuthLoading',
   }
 );
 

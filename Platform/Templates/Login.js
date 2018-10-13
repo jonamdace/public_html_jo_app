@@ -104,6 +104,7 @@ export default class Login extends Component {
 					await AsyncStorage.setItem('username', that.state.inputMobileNumber);
 					await AsyncStorage.setItem('password', that.state.inputPassword);
 
+    					await AsyncStorage.setItem('userToken', that.state.inputMobileNumber);
 					//that.props.updateLoading(false);
 
 					alertType = 'success';
@@ -116,7 +117,7 @@ export default class Login extends Component {
 					});
 
 					setTimeout(function(){
-						that.onPressRedirect("Dashboard");
+						that.onPressRedirect("App");
 					}, 1000);
 				} else if(active == "InActive"){
 					//that.props.updateLoading(false);
