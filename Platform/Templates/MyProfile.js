@@ -112,7 +112,7 @@ export default class MyProfile extends Component {
         var dynamicBtn = <MKButton onPress={()=> this.onPressRedirect("EditMyProfile", {userid : this.state.userid})}
                                    style={{backgroundColor : '#59C2AF', borderColor: '#59C2AF',width: 100, height:50, borderRadius:5}}
                                    textStyle={{color: '#FFF'}} activityIndicatorColor={'orange'}>
-            <Icon name="ios-create-outline" size={25} color={"#FFF"}/> Edit
+            Edit  <Icon name="md-create" size={25} color={"#FFF"} style={{paddingLeft : 10}}/>
         </MKButton>;
 
 
