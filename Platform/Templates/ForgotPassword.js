@@ -34,7 +34,7 @@ export default class Login extends Component {
 			inputPassword : '',
 			inputConfirmPassword : ''
 		};
-		this.navigate=this.props.navigateTo;
+		this.navigate=this.props.navigation.navigate;
 		this.onFocus = this.onFocus.bind(this);
 		this.focusNextField = this.focusNextField.bind(this);
 	}

@@ -32,7 +32,7 @@ export default class MyProfile extends Component {
             userCode: '',
             userImage: '',
         };
-        this.navigate = this.props.navigateTo;
+	this.navigate=this.props.navigation.navigate;
     }
 
     async componentDidMount() {

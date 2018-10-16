@@ -41,6 +41,7 @@ export default class DrawerMenu extends Component {
     }
 
     async onPressToLogout(){
+	AsyncStorage.setItem("userToken", "");
         AsyncStorage.setItem("username", "");
         AsyncStorage.setItem("lastlogin", "");
         AsyncStorage.setItem("name", "");

@@ -186,11 +186,11 @@ export default class Login extends Component {
 		<View style={[{height : this.state.height, flex: 1, width : layoutWidth}]} onLayout={()=> this.updateLayout()}>
 			<ScrollView >
 		      		<View style={{flex: 1, width:inputWidth, alignSelf:'center'}}>
-
+					<View style={{paddingTop: 5}}></View>
 					<MKTextInput label={'Mobile Number'} highlightColor={inputHighlightColor}
 						onChangeText={(inputMobileNumber) => this.updateMyState(inputMobileNumber, 'inputMobileNumber')}
 						value = {this.state.inputMobileNumber}
-						inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
+						inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth, paddingBottom : -10}}
 						keyboardType={'numeric'} maxLength={10} returnKeyType={'next'} ref="inputMobileNumber" 
 						onSubmitEditing={(event) => this.focusNextField('inputPassword')}
 						onFocus={()=>this.onFocus()}

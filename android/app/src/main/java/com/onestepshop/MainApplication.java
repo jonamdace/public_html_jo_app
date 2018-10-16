@@ -3,6 +3,7 @@ package com.onestepshop;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.imagepicker.ImagePickerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.devfd.RNGeocoder.RNGeocoderPackage;
 import com.remobile.splashscreen.RCTSplashScreenPackage;
@@ -26,6 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ImagePickerPackage(),
             new RNGeocoderPackage(),
             new VectorIconsPackage(),
             new RCTSplashScreenPackage(MainActivity.activity, true)

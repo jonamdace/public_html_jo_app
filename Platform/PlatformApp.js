@@ -19,6 +19,7 @@ import ForgotPassword from "./Templates/ForgotPassword";
 import AuthLoadingScreen from "./Templates/AuthLoadingScreen";
 
 import MyProfile from "./Templates/MyProfile";
+import EditMyProfile from "./Templates/EditMyProfile";
 import DrawerMenu from "./Component/menu/DrawerMenu";
 
 
@@ -77,6 +78,7 @@ const AuthStack = createStackNavigator({
 const AppStack = createDrawerNavigator(
     {
         MyProfile: { screen: MyProfile },
+        EditMyProfile: { screen: EditMyProfile },
     }, 
     {
         contentComponent: DrawerMenu,
