@@ -19,6 +19,9 @@ import ForgotPassword from "./Templates/ForgotPassword";
 import AuthLoadingScreen from "./Templates/AuthLoadingScreen";
 
 import MyProfile from "./Templates/MyProfile";
+import ContactUs from "./Templates/ContactUs";
+import Bookmarked from "./Templates/Bookmarked";
+import ChangePassword from "./Templates/ChangePassword";
 import EditMyProfile from "./Templates/EditMyProfile";
 import DrawerMenu from "./Component/menu/DrawerMenu";
 
@@ -79,6 +82,9 @@ const AppStack = createDrawerNavigator(
     {
         MyProfile: { screen: MyProfile },
         EditMyProfile: { screen: EditMyProfile },
+        ChangePassword: { screen: ChangePassword },
+        ContactUs: { screen: ContactUs },
+        Bookmarked: { screen: Bookmarked },
     }, 
     {
         contentComponent: DrawerMenu,
@@ -113,7 +119,6 @@ export default class PlatformApp extends Component<Props> {
 			checkLoggedUserType : '',
 		}
 		this.updateLoginStatus = this.updateLoginStatus.bind(this);
-		this.updateLoading = this.updateLoading.bind(this);
 	}
 
 	async updateLoginStatus(data,userType){
@@ -126,16 +131,9 @@ export default class PlatformApp extends Component<Props> {
 		});
 	}
 
-	updateLoading(status){
-		alert(1);
-		this.setState({
-			isLoading : status
-		});
-	}
-
   render() {
     return (
-	<SwitchNavigator screenProps={{updateLoginStatus:this.updateLoginStatus,updateLoading : this.updateLoading }} updateLoading ={ this.updateLoading} />
+	<SwitchNavigator screenProps={{updateLoginStatus:this.updateLoginStatus }} />
     );
   }
 }
