@@ -18,6 +18,8 @@ import HomeScreen from "./Templates/HomeScreen";
 import ForgotPassword from "./Templates/ForgotPassword";
 import AuthLoadingScreen from "./Templates/AuthLoadingScreen";
 
+
+import Dashboard from "./Templates/Dashboard";
 import MyProfile from "./Templates/MyProfile";
 import ContactUs from "./Templates/ContactUs";
 import Bookmarked from "./Templates/Bookmarked";
@@ -81,6 +83,7 @@ const AuthStack = createStackNavigator({
 const AppStack = createDrawerNavigator(
     {
         MyProfile: { screen: MyProfile },
+        Dashboard: { screen: Dashboard },
         EditMyProfile: { screen: EditMyProfile },
         ChangePassword: { screen: ChangePassword },
         ContactUs: { screen: ContactUs },
@@ -89,7 +92,7 @@ const AppStack = createDrawerNavigator(
     {
         contentComponent: DrawerMenu,
         drawerWidth: wp('80%'),
-        initialRouteName: 'MyProfile'
+        initialRouteName: 'Dashboard'
     }
 );
 

@@ -31,20 +31,20 @@ export default class Dashboard extends Component {
 
 	componentWillMount(){
 
-		/*
+
 		AdMobInterstitial.removeAllListeners(); //<- Add this line to close/remove event listener
 		AdMobInterstitial.setAdUnitID("ca-app-pub-3670807734353712/7724704673");
-		//AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+		AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
 
 		AdMobInterstitial.requestAd().then(() => AdMobInterstitial.showAd());
 		AdMobInterstitial.addEventListener("adClosed", () => {
-		  // alert("closed");
+		   //alert("closed");
 		});
 
 		AdMobInterstitial.addEventListener("adFailedToLoad", (e) => {
-		   // alert("adFailedToLoad"+e);
+		    //alert("adFailedToLoad"+e);
 		});
-		*/
+
 	}
 
   	constructor(props: Object) {
