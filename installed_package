@@ -1,13 +1,18 @@
-npm install react-native-vector-icons --save
-
+npm install react-native-admob@2.0.0-beta.5 --save
+npm install react-native-message-bar --save
+npm install react-native-responsive-screen --save
 npm install react-navigation --save
 
+npm install react-native-vector-icons --save
 npm install @remobile/react-native-splashscreen --save
-
-npm install react-native-message-bar --save
-
-npm install react-native-admob@2.0.0-beta.5 --save
-
 npm install react-native-geocoder --save
 
+
+
+
+
+
+npm install react-native-admob --save
+npm install react-native-message-bar --save
 npm install react-native-responsive-screen --save
+npm install react-navigation --save
