@@ -19,6 +19,8 @@ import ForgotPassword from "./Templates/ForgotPassword";
 import AuthLoadingScreen from "./Templates/AuthLoadingScreen";
 
 
+import ViewHistory from "./Templates/ViewHistory";
+import NearByYouAds from "./Templates/NearByYouAds";
 import Dashboard from "./Templates/Dashboard";
 import MyProfile from "./Templates/MyProfile";
 import ContactUs from "./Templates/ContactUs";
@@ -84,6 +86,8 @@ const AppStack = createDrawerNavigator(
     {
         MyProfile: { screen: MyProfile },
         Dashboard: { screen: Dashboard },
+        ViewHistory: { screen: ViewHistory },
+        NearByYouAds: { screen: NearByYouAds },
         EditMyProfile: { screen: EditMyProfile },
         ChangePassword: { screen: ChangePassword },
         ContactUs: { screen: ContactUs },
@@ -92,7 +96,7 @@ const AppStack = createDrawerNavigator(
     {
         contentComponent: DrawerMenu,
         drawerWidth: wp('80%'),
-        initialRouteName: 'Dashboard'
+        initialRouteName: 'NearByYouAds'
     }
 );
 
