@@ -17,8 +17,9 @@ import {
 
 import SearchAdsContent from "./SearchAdsContent";
 import { doPost } from "../Component/MKActions";
+import MKAdsBanner from "../Component/MKAdsBanner";
 
-export default class NearByYouAds extends Component {
+export default class ViewAllMyAds extends Component {
 
     constructor(props:Object) {
         var {height, width} = Dimensions.get('window');
@@ -38,7 +39,7 @@ export default class NearByYouAds extends Component {
             nextPage: "",
             searchUserId : ""
         };
-		this.navigate=this.props.navigation.navigate;
+	this.navigate=this.props.navigation.navigate;
     }
 
     async componentDidMount() {
@@ -75,20 +76,17 @@ export default class NearByYouAds extends Component {
     async dataLoading() {
         var searchResultJson = {};
         var that = this;
+
+        //that.props.updateLoading(true);
+
         var postJson = new FormData();
         postJson.append("page", that.state.page);
-        postJson.append("getListFromPage", "View My Bookmarked List");
+        postJson.append("getListFromPage", "View All My Ads");
         postJson.append("searchUserId", that.state.searchUserId);
         postJson.append("rf", "json");
         var subUrl = "searchAdsAjax";
-        //that.props.updateLoading(true);
         var response = await doPost(subUrl, postJson);
         //alert(JSON.stringify(postJson))
-
-        setTimeout(function () {
-            //that.props.updateLoading(false);
-        }, 1000);
-
         if (response != null) {
             //alert(JSON.stringify(response));
             var searchData = response['searchData'];
@@ -106,15 +104,14 @@ export default class NearByYouAds extends Component {
                 that.updateMyState(that.state.ds.cloneWithRows(searchData), 'listItems');
             }
         }
-
-
+       // that.props.updateLoading(false);
     }
 
     constructTemplate(item) {
         return <SearchAdsContent imgWidth={this.state.width-50}
                                  imgHeight={150}
                                  navigation={this.navigate}
-                                 postJson={item} fromPage="View My Bookmarked List" dataLoading = {this.dataLoading}/>;
+                                 postJson={item} fromPage="View All My Ads" />;
     }
 
     render() {
@@ -139,6 +136,7 @@ export default class NearByYouAds extends Component {
                     <ListView style={{paddingBottom:15}} dataSource={this.state.listItems}
                               renderRow={(item) => this.constructTemplate(item)}
                               enableEmptySections={true}/>
+			<MKAdsBanner />
                     <View style={{flexDirection:"row", width : layoutWidth, paddingBottom : 20}}>
                         <View style={ {width : layoutWidth/2}}>{ previousBtn }</View>
                         <View style={ {width : layoutWidth/2}}>{ nextBtn }</View>

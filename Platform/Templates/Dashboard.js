@@ -20,10 +20,10 @@ import CommonStyle from "../Styles/CommonStyle";
 import MKButton from "../Component/MKButton";
 import MKTextInput from "../Component/MKTextInput";
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 import { doPost } from "../Component/MKActions";
+import MKAdsBanner from "../Component/MKAdsBanner";
 
-import {  AdMobInterstitial, AdMobBanner } from 'react-native-admob';
+import {  AdMobInterstitial } from 'react-native-admob';
 
 Geocoder.fallbackToGoogle("AIzaSyCbkW5l6iPkWb551pynfeBn3Lzb69_FFsY");
 
@@ -193,12 +193,6 @@ setTimeout(function(){
     		return ( 
 	<View style={[{height : this.state.height, flex: 1, width : layoutWidth, backgroundColor:'#59C2AF'}]} onLayout={()=> this.updateLayout()} >
 		<ScrollView style={{ flex: 1}}>
-<AdMobBanner
-  adSize="fullBanner"
-  adUnitID="ca-app-pub-3670807734353712/2715920575"
-  testDevices={[AdMobBanner.simulatorId]}
-  onAdFailedToLoad={error => alert(error)}
-/>
 		<View style={{alignItems:'center', marginTop: 10, marginBottom: 10}}>
 			<View style={{width: layoutWidth-10, height: 50, borderRadius: 3, backgroundColor: '#FFF'}}>
 	       			<TouchableOpacity style={styles.button} onPress={()=>this.onPressRedirect('SearchHistory')} >
@@ -210,6 +204,7 @@ setTimeout(function(){
 			</View>
 		</View>
 			<ListView contentContainerStyle={styles.grid} dataSource={this.state.listItems} renderRow={(item) => this.renderGridItem(item, 300)} enableEmptySections={true}/>
+		<MKAdsBanner />
 		</ScrollView>				
 	</View>
 		);

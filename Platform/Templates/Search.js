@@ -15,9 +15,9 @@ import {
     AsyncStorage
 } from "react-native";
 
-import { Navbar } from 'navbar-native';
 import SearchAdsContent from "./SearchAdsContent";
 import { doPost } from "../Component/MKActions";
+import MKAdsBanner from "../Component/MKAdsBanner";
 
 export default class Search extends Component {
 
@@ -40,7 +40,7 @@ export default class Search extends Component {
             nextPage: "",
             searchUserId : ""
         };
-        this.navigate = this.props.navigateTo;
+	this.navigate=this.props.navigation.navigate;
     }
 
     getValueFromArray(arraName, arrayIndex) {
@@ -54,7 +54,7 @@ export default class Search extends Component {
         var paramsArray = this.props.value;
         var searchUserId = await AsyncStorage.getItem('userid');
 
-
+		
         if (paramsArray != null) {
             var searchText = this.getValueFromArray(paramsArray, 'searchText');
             var categoryId = this.getValueFromArray(paramsArray, 'categoryId');
@@ -143,7 +143,7 @@ export default class Search extends Component {
        }
         return <SearchAdsContent imgWidth={this.state.width-50}
                                  imgHeight={150}
-                                 navigation={this.props.navigateTo}
+                                 navigation={this.navigate}
                                  postJson={item} fromPage="adsList" bookmarkAdd={bookmarkAdd}/>;
     }
 
@@ -165,19 +165,11 @@ export default class Search extends Component {
         return (
             <View style={[{height : this.state.height, flex: 1, width : layoutWidth, backgroundColor:'#59C2AF'}]}
                   onLayout={()=> this.updateLayout()}>
-                <Navbar
-                    title={"Ads List"}
-                    bgColor={'orange'}
-                    left={{
-						icon: "ios-arrow-back",
-						onPress: () => this.onPressRedirect('Dashboard')
-					}}
-                    style={{height:60}}
-                    />
                 <ScrollView >
                     <ListView style={{paddingBottom:15}} dataSource={this.state.listItems}
                               renderRow={(item) => this.constructTemplate(item)}
                               enableEmptySections={true}/>
+			<MKAdsBanner />
                     <View style={{flexDirection:"row", width : layoutWidth, paddingBottom : 20}}>
                         <View style={ {width : layoutWidth/2}}>{ previousBtn }</View>
                         <View style={ {width : layoutWidth/2}}>{ nextBtn }</View>

@@ -21,7 +21,6 @@ export default class ViewHistory extends Component {
             ds: ds,
             listItems: ds.cloneWithRows([])
         };
-        this.navigate = this.props.navigateTo;
     }
 
     async componentDidMount() {

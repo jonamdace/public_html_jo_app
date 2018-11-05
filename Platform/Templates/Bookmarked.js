@@ -38,7 +38,7 @@ export default class Bookmarked extends Component {
             nextPage: "",
             searchUserId : ""
         };
-        this.navigate = this.props.navigateTo;
+		this.navigate=this.props.navigation.navigate;
     }
 
     async componentDidMount() {
@@ -113,7 +113,7 @@ export default class Bookmarked extends Component {
     constructTemplate(item) {
         return <SearchAdsContent imgWidth={this.state.width-50}
                                  imgHeight={150}
-                                 navigation={this.props.navigateTo}
+                                 navigation={this.navigate}
                                  postJson={item} fromPage="View My Bookmarked List" bookmarkAdd={true} dataLoading = {this.dataLoading}/>;
     }
 

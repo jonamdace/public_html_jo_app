@@ -20,9 +20,14 @@ import AuthLoadingScreen from "./Templates/AuthLoadingScreen";
 
 
 import ViewHistory from "./Templates/ViewHistory";
+import ViewAllMyAds from "./Templates/ViewAllMyAds";
+import SearchHistory from "./Templates/SearchHistory";
+import Search from "./Templates/Search";
 import NearByYouAds from "./Templates/NearByYouAds";
+import AdsView from "./Templates/AdsView";
 import Dashboard from "./Templates/Dashboard";
 import MyProfile from "./Templates/MyProfile";
+import AdsGallery from "./Templates/AdsGallery";
 import ContactUs from "./Templates/ContactUs";
 import Bookmarked from "./Templates/Bookmarked";
 import ChangePassword from "./Templates/ChangePassword";
@@ -85,18 +90,23 @@ const AuthStack = createStackNavigator({
 const AppStack = createDrawerNavigator(
     {
         MyProfile: { screen: MyProfile },
+        AdsGallery: { screen: AdsGallery },
         Dashboard: { screen: Dashboard },
         ViewHistory: { screen: ViewHistory },
+        ViewAllMyAds: { screen: ViewAllMyAds },
+        SearchHistory: { screen: SearchHistory },
         NearByYouAds: { screen: NearByYouAds },
+        AdsView: { screen: AdsView },
         EditMyProfile: { screen: EditMyProfile },
         ChangePassword: { screen: ChangePassword },
         ContactUs: { screen: ContactUs },
         Bookmarked: { screen: Bookmarked },
+        Search: { screen: Search },
     }, 
     {
         contentComponent: DrawerMenu,
         drawerWidth: wp('80%'),
-        initialRouteName: 'NearByYouAds'
+        initialRouteName: 'SearchHistory'
     }
 );
 
