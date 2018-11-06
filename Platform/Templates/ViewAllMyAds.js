@@ -1,5 +1,5 @@
 'use strict';
-import React, {Component, PropTypes} from "react";
+import React, {Component} from "react";
 import {
     View,
     ToastAndroid,
@@ -18,7 +18,7 @@ import {
 import SearchAdsContent from "./SearchAdsContent";
 import { doPost } from "../Component/MKActions";
 import MKAdsBanner from "../Component/MKAdsBanner";
-
+import { Navbar } from '../Component/navbar-native/index.js';
 export default class ViewAllMyAds extends Component {
 
     constructor(props:Object) {
@@ -132,6 +132,15 @@ export default class ViewAllMyAds extends Component {
         return (
             <View style={[{height : this.state.height, flex: 1, width : layoutWidth, backgroundColor:'#59C2AF'}]}
                   onLayout={()=> this.updateLayout()}>
+		<Navbar
+                    title={"My Ads"}
+                    bgColor={'orange'}
+                    left={{
+						icon: "ios-menu",
+						onPress: () => this.props.navigation.toggleDrawer(),
+					}}
+                    style={{height:60}}
+                    />
                 <ScrollView >
                     <ListView style={{paddingBottom:15}} dataSource={this.state.listItems}
                               renderRow={(item) => this.constructTemplate(item)}

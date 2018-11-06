@@ -1,5 +1,5 @@
 'use strict';
-import React, {Component, PropTypes} from "react";
+import React, {Component} from "react";
 import {
     View,
     ToastAndroid,
@@ -14,7 +14,7 @@ import {
     ListView,
     AsyncStorage
 } from "react-native";
-
+import { Navbar } from '../Component/navbar-native/index.js';
 import SearchAdsContent from "./SearchAdsContent";
 import { doPost } from "../Component/MKActions";
 
@@ -135,6 +135,15 @@ export default class Bookmarked extends Component {
         return (
             <View style={[{height : this.state.height, flex: 1, width : layoutWidth, backgroundColor:'#59C2AF'}]}
                   onLayout={()=> this.updateLayout()}>
+		<Navbar
+                    title={"Bookmark"}
+                    bgColor={'orange'}
+                    left={{
+						icon: "ios-menu",
+						onPress: () => this.props.navigation.toggleDrawer(),
+					}}
+                    style={{height:60}}
+                    />
                 <ScrollView >
                     <ListView style={{paddingBottom:15}} dataSource={this.state.listItems}
                               renderRow={(item) => this.constructTemplate(item)}

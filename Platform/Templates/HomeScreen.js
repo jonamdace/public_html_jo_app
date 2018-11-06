@@ -1,7 +1,6 @@
 'use strict';
 import React, { Component } from "react";
 import { View, StyleSheet, Animated, Text, TextInput, ScrollView, Dimensions, TouchableOpacity, AsyncStorage, PermissionsAndroid, BackAndroid } from "react-native";
-import PropTypes from 'prop-types';
 import CommonStyle from "../Styles/CommonStyle";
 import MKButton from "../Component/MKButton";
 import MKTextInput from "../Component/MKTextInput";

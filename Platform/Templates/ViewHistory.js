@@ -1,8 +1,9 @@
-import React, {Component, PropTypes} from "react";
+import React, {Component} from "react";
 import {View, StyleSheet, Animated, Text, TextInput, ScrollView, Dimensions, TouchableOpacity, AsyncStorage, Image, ListView} from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { doPost } from "../Component/MKActions";
 import MKButton from "../Component/MKButton";
+import { Navbar } from '../Component/navbar-native/index.js';
 
 export default class ViewHistory extends Component {
 
@@ -125,6 +126,16 @@ export default class ViewHistory extends Component {
         return (
             <View style={[{height : this.state.height, flex: 1, width : this.state.width}]}
                   onLayout={()=> this.updateLayout()}>
+	<Navbar
+                    title={"History"}
+                    bgColor={'orange'}
+                    left={{
+						icon: "ios-menu",
+						onPress: () => this.props.navigation.toggleDrawer(),
+					}}
+                    style={{height:60}}
+                    />
+
                 <ScrollView >
                     <View style={{flex: 1,padding:5, alignSelf:'center'}}>
                         <ListView dataSource={this.state.listItems}

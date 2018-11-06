@@ -1,5 +1,5 @@
 'use strict';
-import React, {Component, PropTypes} from "react";
+import React, {Component} from "react";
 import {View, Image, StyleSheet, Animated, Text, TextInput, ScrollView, Dimensions, TouchableOpacity, AsyncStorage} from "react-native";
 
 //import { Container, Navbar } from 'navbar-native';
@@ -9,7 +9,8 @@ import MKTextInput from "../Component/MKTextInput";
 import { doPost } from "../Component/MKActions";
 import ConfigVariable from '../Component/config/ConfigVariable';
 import Icon from 'react-native-vector-icons/Ionicons';
-import noimage from '../images/noimage.jpg'
+import noimage from '../images/noimage.jpg';
+import { Navbar } from '../Component/navbar-native/index.js';
 export default class MyProfile extends Component {
 
     constructor(props:Object) {
@@ -119,6 +120,15 @@ export default class MyProfile extends Component {
         return (
             <View style={[{height : this.state.height, flex: 1, width : layoutWidth,  backgroundColor:'#FFF'}]}
                   onLayout={()=> this.updateLayout()}>
+		<Navbar
+                    title={"My Profile"}
+                    bgColor={'orange'}
+                    left={{
+						icon: "ios-menu",
+						onPress: () => this.props.navigation.toggleDrawer(),
+					}}
+                    style={{height:60}}
+                    />
 
                 <ScrollView >
                     <View style={{flex: 1, width:inputWidth, alignSelf:'center'}}>

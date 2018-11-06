@@ -1,5 +1,5 @@
 'use strict';
-import React, {Component, PropTypes} from "react";
+import React, {Component} from "react";
 import {Picker, View, StyleSheet, Animated, Text, TextInput, ScrollView, Dimensions, TouchableOpacity, AsyncStorage} from "react-native";
 
 import CommonStyle from "../Styles/CommonStyle";
@@ -7,7 +7,7 @@ import MKButton from "../Component/MKButton";
 import MKTextInput from "../Component/MKTextInput";
 import { doPost } from "../Component/MKActions";
 import PickerModal from 'react-native-picker-modal';
-
+import { Navbar } from '../Component/navbar-native/index.js';
 var MessageBarAlert = require('react-native-message-bar').MessageBar;
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 
@@ -197,7 +197,15 @@ export default class ContactUs extends Component {
         });
         return (
             <View style={[{height : this.state.height, flex: 1, width : layoutWidth,  backgroundColor:'#FFF'}]} onLayout={()=> this.updateLayout()}>
-
+		<Navbar
+                    title={"Contact Us"}
+                    bgColor={'orange'}
+                    left={{
+						icon: "ios-menu",
+						onPress: () => this.props.navigation.toggleDrawer(),
+					}}
+                    style={{height:60}}
+                    />
                 <ScrollView >
                     <View style={{flex: 1, width:inputWidth, alignSelf:'center'}}>
 

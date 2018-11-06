@@ -1,6 +1,5 @@
 'use strict';
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
 import {View, StyleSheet, Animated, Text, TextInput, ScrollView, Dimensions, TouchableOpacity, AsyncStorage} from "react-native";
 
 import CommonStyle from "../Styles/CommonStyle";

@@ -1,5 +1,5 @@
 'use strict';
-import React, {Component, PropTypes} from "react";
+import React, { Component } from "react";
 import {View,StyleSheet, Animated, Text, TextInput, ScrollView, Dimensions, TouchableOpacity, Image, AsyncStorage} from "react-native";
 
 import Icon from 'react-native-vector-icons/FontAwesome';

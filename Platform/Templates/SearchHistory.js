@@ -1,5 +1,6 @@
 'use strict';
-import React, {Component, PropTypes} from "react";
+import React, {Component} from "react";
+
 import {
     View,
     ToastAndroid,
@@ -17,7 +18,7 @@ import {
 
 import CommonStyle from "../Styles/CommonStyle";
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import { Navbar } from '../Component/navbar-native/index.js';
 export default class Search extends Component {
 
     constructor(props:Object) {
@@ -59,8 +60,8 @@ export default class Search extends Component {
         this.setState({height: height, width: width});
     }
 
-    onPressRedirectToGoBack(routes) {
-        this.props.navigator.pop();
+    onPressRedirect(routes) {
+        this.navigate(routes);
     }
 
     async onPressSearch() {
@@ -126,7 +127,29 @@ export default class Search extends Component {
         return (
             <View style={[{height : this.state.height, flex: 1, width : layoutWidth, backgroundColor:'#59C2AF'}]}
                   onLayout={()=> this.updateLayout()}>
-                
+                 <Navbar
+                    title={
+                        <TextInput
+                            placeholder='Search'
+                            placeholderTextColor='#FFF' autoFocus={true} underlineColorAndroid={'transparent'}
+                            onChangeText={(searchText) => this.updateMyState(searchText, 'searchText')}
+                            value={this.state.searchText}
+                            onEndEditing={()=>this.onPressSearch()} returnKeyType={'search'}
+                            style= {{color:'#FFF', height:45,fontSize: 20,width: layoutWidth-125, }}
+                            />
+
+                    }
+                    bgColor={'orange'}
+                    left={{
+                        icon: "ios-arrow-back",
+                        onPress: () => this.onPressRedirect('Dashboard')
+			        }}
+                    right={{
+                        icon: "ios-search",
+                        onPress: () => this.onPressSearch()
+                    }}
+                    style={{height:60}}
+                    />
                 <ScrollView style={{ flex: 1}}>
                     <View style={{flexDirection: 'row'}}>
                         <Text style={[styles.textHeader, {width : layoutWidth - 80}]}>

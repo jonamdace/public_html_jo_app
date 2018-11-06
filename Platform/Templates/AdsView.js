@@ -1,5 +1,5 @@
 'use strict';
-import React, {Component, PropTypes} from "react";
+import React, {Component} from "react";
 import {
 	View, 
 	Text, 
@@ -84,7 +84,7 @@ export default class AdsView extends Component {
 	}
 
 	onPressRedirectToGoBack(){
-		this.props.navigator.pop();
+        	this.props.navigation.goBack();
 	}
 
 	onPressRedirectToPassData(routes, postJson){
