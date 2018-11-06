@@ -11,6 +11,8 @@ import ConfigVariable from '../Component/config/ConfigVariable';
 import Icon from 'react-native-vector-icons/Ionicons';
 import noimage from '../images/noimage.jpg';
 import { Navbar } from '../Component/navbar-native/index.js';
+import MKAdsBanner from "../Component/MKAdsBanner";
+
 export default class MyProfile extends Component {
 
     constructor(props:Object) {
@@ -153,6 +155,7 @@ export default class MyProfile extends Component {
 
                         <View style={{paddingTop: 30}}></View>
                     </View>
+			<MKAdsBanner />
                 </ScrollView>
             </View>
         );

@@ -192,7 +192,7 @@ setTimeout(function(){
     		return ( 
 	<View style={[{height : this.state.height, flex: 1, width : layoutWidth, backgroundColor:'#59C2AF'}]} onLayout={()=> this.updateLayout()} >
 		<Navbar
-                    title={"Ads List"}
+                    title={"Home"}
                     bgColor={'orange'}
                     left={{
 						icon: "ios-menu",

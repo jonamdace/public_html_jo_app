@@ -7,6 +7,7 @@ import MKButton from "../Component/MKButton";
 import MKTextInput from "../Component/MKTextInput";
 import { doPost } from "../Component/MKActions";
 import { Navbar } from '../Component/navbar-native/index.js';
+import MKAdsBanner from "../Component/MKAdsBanner";
 var MessageBarAlert = require('react-native-message-bar').MessageBar;
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 
@@ -184,6 +185,7 @@ export default class ChangePassword extends Component {
                         { inputRePasswordError }
 
                         <View style={{paddingTop: 30}}></View>
+			<MKAdsBanner />
                     </View>
                 </ScrollView>
                 <MKButton onPress={()=> this.changeMyPassword()} style={{backgroundColor : '#59C2AF', borderColor: '#59C2AF', height:60}} textStyle={{color: '#FFF'}} activityIndicatorColor={'orange'} >

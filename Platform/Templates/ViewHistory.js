@@ -3,6 +3,7 @@ import {View, StyleSheet, Animated, Text, TextInput, ScrollView, Dimensions, Tou
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { doPost } from "../Component/MKActions";
 import MKButton from "../Component/MKButton";
+import MKAdsBanner from "../Component/MKAdsBanner";
 import { Navbar } from '../Component/navbar-native/index.js';
 
 export default class ViewHistory extends Component {
@@ -142,6 +143,7 @@ export default class ViewHistory extends Component {
                                   renderRow={(item) => this.renderRow(item)}
                                   enableEmptySections={true}/>
                     </View>
+			<MKAdsBanner />
                 </ScrollView>
                 <View style={{padding : 5}}></View>
                 <View style={{flexDirection : 'row', paddingBottom : 30, right: 5, top: this.state.height - 160, position: 'absolute'}}>

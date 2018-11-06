@@ -8,6 +8,7 @@ import MKTextInput from "../Component/MKTextInput";
 import { doPost } from "../Component/MKActions";
 import PickerModal from 'react-native-picker-modal';
 import { Navbar } from '../Component/navbar-native/index.js';
+import MKAdsBanner from "../Component/MKAdsBanner";
 var MessageBarAlert = require('react-native-message-bar').MessageBar;
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 
@@ -258,6 +259,7 @@ export default class ContactUs extends Component {
 
                         <View style={{paddingTop: 30}}></View>
                     </View>
+			<MKAdsBanner />
                 </ScrollView>
                 {dynamicBtn}
                 <MessageBarAlert ref="alert" />

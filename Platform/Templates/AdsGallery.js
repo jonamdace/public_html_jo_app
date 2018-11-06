@@ -8,7 +8,7 @@ import {
 	Platform,
 	Dimensions,
 	ScrollView,
-	Image
+	ImageBackground
 	} from "react-native";
 
 import CommonStyle from "../Styles/CommonStyle";
@@ -57,7 +57,6 @@ export default class AdsGallery extends Component {
 			adsCode : '',
 			userCode :''
 		};
-		this.navigate=this.props.navigateTo;
 	}
 
 	updateLayout(){
@@ -66,8 +65,8 @@ export default class AdsGallery extends Component {
 	}
 
 	async componentDidMount() {
-		var singleAdsJson = this.props.value['singleAdsJson'];
-		this.updateMyState(this.props.value['data'], 'adsgalleryDetails');
+		var singleAdsJson = this.props.navigation.state.params['singleAdsJson'];
+		this.updateMyState(this.props.navigation.state.params['data'], 'adsgalleryDetails');
 		this.updateMyState(singleAdsJson[0].adsCode, 'adsCode');
 		this.updateMyState(singleAdsJson[0].userCode, 'userCode');
 	}
@@ -89,10 +88,10 @@ export default class AdsGallery extends Component {
 			var filePath = ConfigVariable.uploadedAdsFilePath + '/' + that.state.userCode + '/' + that.state.adsCode + '/' + fileName;
 				//var filePath = 'http://192.168.43.42/public_html1/uploads/files/userads/'+that.state.userCode +"/"+ that.state.adsCode+"/"+fileName;
 				return <View style={styles.slide3} key={index} >
-<Image source={{uri: filePath}} resizeMode={'contain'}>
+<ImageBackground source={{uri: filePath}} resizeMode={'stretch'} style={{width: '100%', height: '100%'}}>
 		<View style={[CommonStyle.slide1, {width:this.state.width }]}>
 		</View>
-</Image></View>
+</ImageBackground></View>
 			});
 			dispData = <Swiper style={{height: this.state.height-24, width: this.state.width, justifyContent:'center', alignSelf:'center'}} showsButtons={false}>{disp}</Swiper>;
 			

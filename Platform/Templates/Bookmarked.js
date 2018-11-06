@@ -15,6 +15,7 @@ import {
     AsyncStorage
 } from "react-native";
 import { Navbar } from '../Component/navbar-native/index.js';
+import MKAdsBanner from "../Component/MKAdsBanner";
 import SearchAdsContent from "./SearchAdsContent";
 import { doPost } from "../Component/MKActions";
 
@@ -148,6 +149,7 @@ export default class Bookmarked extends Component {
                     <ListView style={{paddingBottom:15}} dataSource={this.state.listItems}
                               renderRow={(item) => this.constructTemplate(item)}
                               enableEmptySections={true}/>
+			<MKAdsBanner />
                     <View style={{flexDirection:"row", width : layoutWidth, paddingBottom : 20}}>
                         <View style={ {width : layoutWidth/2}}>{ previousBtn }</View>
                         <View style={ {width : layoutWidth/2}}>{ nextBtn }</View>

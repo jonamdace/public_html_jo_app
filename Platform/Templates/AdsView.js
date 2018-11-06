@@ -50,7 +50,7 @@ export default class AdsView extends Component {
 
 
 	async componentDidMount() {
-	        var paramsData = this.props.value;
+	        var paramsData = this.props.navigation.state.params;
 		var singleAdsJson = null;
 		var dynamicAdsDetails = null;
 		var adsgalleryDetails = null;
@@ -100,14 +100,14 @@ export default class AdsView extends Component {
 
 		return (
 			<TouchableOpacity onPress={()=> this.onPressRedirectToPassData('AdsView', item)}>
-				<ImageBackground source={{uri: filePath }}  resizeMode={'stretch'} >
-				<View style={{ width: 100, height: 100, borderWidth : 1, borderColor :'#59C2AF', margin : 5, }}>
+				<View style={{ width: 100, height: 100, borderWidth : 1, borderColor :'#59C2AF'}}>
+				<ImageBackground source={{uri: filePath }}  resizeMode={'stretch'} style={{width: '100%', height: '100%'}} >
 					<View style={{flexDirection: "row"}}>
 							<Text style={{textAlign : 'left', fontSize : 10, width: 48,  color :'#FFF', backgroundColor: 'orange'}}>{item['adsCode']}</Text>
 							<Text style={{textAlign : 'right', fontSize : 10, width: 50, color :'#FFF', backgroundColor: '#59C2AF'}}>{  "₹ " + item['offerPrice']}</Text>
 					</View>
-				</View>
 				</ImageBackground>
+				</View>
 			</TouchableOpacity>
 		);
 	}
@@ -294,7 +294,7 @@ export default class AdsView extends Component {
 		var filePath = ConfigVariable.uploadedAdsFilePathEmpty;
 		if(fileName != null){
 			filePath = ConfigVariable.uploadedAdsFilePath + '/' + singleAdsJson['userCode'] + '/' + singleAdsJson['adsCode'] + '/' + fileName;
-			fileImage = <ImageBackground source={{uri: filePath }}  resizeMode={'stretch'} >
+			fileImage = <ImageBackground source={{uri: filePath }}  resizeMode={'stretch'} style={{width: deviceWidth - 100, height: '100%'}}>
 <View style={[CommonStyle.slide1, {height : 300}]}>
 		</View>
 </ImageBackground>
