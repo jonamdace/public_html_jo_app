@@ -20,6 +20,8 @@ import AuthLoadingScreen from "./Templates/AuthLoadingScreen";
 
 
 import ViewHistory from "./Templates/ViewHistory";
+import AdPostPageOne from "./Templates/AdPostPageOne";
+import AdPostPageEdit from "./Templates/AdPostPageEdit";
 import ViewAllMyAds from "./Templates/ViewAllMyAds";
 import SearchHistory from "./Templates/SearchHistory";
 import Search from "./Templates/Search";
@@ -93,6 +95,8 @@ const AppStack = createDrawerNavigator(
         AdsGallery: { screen: AdsGallery },
         Dashboard: { screen: Dashboard },
         ViewHistory: { screen: ViewHistory },
+        AdPostPageOne: { screen: AdPostPageOne },
+        AdPostPageEdit: { screen: AdPostPageEdit },
         ViewAllMyAds: { screen: ViewAllMyAds },
         SearchHistory: { screen: SearchHistory },
         NearByYouAds: { screen: NearByYouAds },
@@ -106,7 +110,7 @@ const AppStack = createDrawerNavigator(
     {
         contentComponent: DrawerMenu,
         drawerWidth: wp('80%'),
-        initialRouteName: 'SearchHistory'
+        initialRouteName: 'ViewAllMyAds'
     }
 );
 

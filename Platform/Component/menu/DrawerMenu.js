@@ -47,7 +47,8 @@ export default class DrawerMenu extends Component {
         AsyncStorage.setItem("name", "");
         AsyncStorage.setItem("img", "");
         this.setStateOftheMenu(null, null, null, null);
-	this.navigateToScreen("HomeScreen");
+	this.navigateToScreen("Login");
+	this.props.navigation.navigate("Login");
     }
 
     setStateOftheMenu(username, lastlogin, name, img) {
