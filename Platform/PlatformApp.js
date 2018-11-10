@@ -110,7 +110,7 @@ const AppStack = createDrawerNavigator(
     {
         contentComponent: DrawerMenu,
         drawerWidth: wp('80%'),
-        initialRouteName: 'Dashboard'
+        initialRouteName: 'ViewAllMyAds'
     }
 );
 
