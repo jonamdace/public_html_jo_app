@@ -196,9 +196,6 @@ export default class DrawerMenu extends Component {
                     {objArray}
                     </View>
                 </ScrollView>
-		<View style={styles.footerContainer}>
-                    <Text style={styles.footerText}>OneStepShop App Version 1.0</Text>
-                </View>
             </View>
         );
     }

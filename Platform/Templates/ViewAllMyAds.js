@@ -71,20 +71,29 @@ export default class Application extends Component {
 	});
     }
 
-    _fetchMore() {
+    async _fetchMore() {
 	var stateLeftRecord = this.state.leftRecord;
 	if(stateLeftRecord >0 ){
-		this.fetchData(responseJson => {
 
+        var postJson = new FormData();
+        postJson.append("page", this.state.page);
+        postJson.append("getListFromPage", "View All My Ads");
+        postJson.append("searchUserId", this.state.searchUserId);
+        postJson.append("rf", "json");
+        var subUrl = "searchAdsAjax";
+        var responseJson = await doPost(subUrl, postJson);
+
+
+        if (responseJson != null) {
 		    var searchData = responseJson['searchData'];
 		    var page = parseInt(responseJson['page']);
 		    var leftRecord = parseInt(responseJson['left_rec']);
 		    var nextPage = page + 1;
 
 		    var previousPage = page - 1;
-		    if (searchData != null && leftRecord > 0) {
+		    if (searchData != null) {
 			const data = this.state._data.concat(searchData);
-			this.setState({
+			await this.setState({
 				dataSource: this.state.dataSource.cloneWithRows(data),
 				isLoadingMore: false,
 				_data: data,
@@ -94,16 +103,16 @@ export default class Application extends Component {
 			});
 
 		        if (leftRecord > 0)
-		            this.updateMyState(nextPage, 'page');
+		            await this.updateMyState(nextPage, 'page');
 
 		    }
 			else {
-		this.setState({isLoadingMore : false});
+		await this.setState({isLoadingMore : false});
 			}
-		});
+		};
 
 	} else {
-		this.setState({isLoadingMore : false});
+		await this.setState({isLoadingMore : false});
 	}
     }
 
@@ -117,21 +126,16 @@ export default class Application extends Component {
         var userid = await AsyncStorage.getItem('userid');
         this.setState({searchUserId : userid});
 
-	/*
-        this.fetchData(responseJson => {
-            let ds = new ListView.DataSource({
-                rowHasChanged: (r1, r2) => r1 !== r2,
-            });
-            const data = responseJson.data.children;
-            this.setState({
-                dataSource: ds.cloneWithRows(data),
-                isLoading: false,
-                _data: data
-            });
-        });
-	*/
+        var postJson = new FormData();
+        postJson.append("page", this.state.page);
+        postJson.append("getListFromPage", "View All My Ads");
+        postJson.append("searchUserId", this.state.searchUserId);
+        postJson.append("rf", "json");
+        var subUrl = "searchAdsAjax";
+        var responseJson = await doPost(subUrl, postJson);
 
-        this.fetchData(responseJson => {
+
+        if (responseJson != null) {
 
             let ds = new ListView.DataSource({
                 rowHasChanged: (r1, r2) => r1 !== r2,
@@ -145,7 +149,7 @@ export default class Application extends Component {
             var previousPage = page - 1;
             if (searchData != null) {
 		const data = searchData;
-		this.setState({
+		await this.setState({
 			dataSource: ds.cloneWithRows(searchData),
 			isLoadingMore: false,
                         isLoading: false,
@@ -156,10 +160,10 @@ export default class Application extends Component {
 		});
 
                 if (leftRecord > 0)
-                    this.updateMyState(nextPage, 'page');
+                   await this.updateMyState(nextPage, 'page');
 
             }
-        });
+        }
 
     }
 
