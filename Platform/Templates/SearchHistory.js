@@ -20,7 +20,7 @@ import CommonStyle from "../Styles/CommonStyle";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Navbar } from '../Component/navbar-native/index.js';
 export default class Search extends Component {
-
+	static navigationOptions = { header: null };
     constructor(props:Object) {
         var {height, width} = Dimensions.get('window');
         super(props);

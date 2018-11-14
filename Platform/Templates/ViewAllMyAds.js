@@ -12,7 +12,7 @@ import {
 import SearchAdsContent from "./SearchAdsContent";
 import { doPost } from "../Component/MKActions";
 import MKAdsBanner from "../Component/MKAdsBanner";
-import { Navbar } from '../Component/navbar-native/index.js';
+
 
 export default class Application extends Component {
     constructor(props) {
@@ -177,54 +177,28 @@ export default class Application extends Component {
     render() {
         if (this.state.isLoading) {
             return (
-                <View>
-		        <View style={{height : 100}}>
-			<Navbar
-		            title={"View All My Ads"}
-		            bgColor={'orange'}
-		            left={{
-							icon: "ios-menu",
-							onPress: () => this.props.navigation.toggleDrawer(),
-						}}
-		            style={{height:60}}
-		            />
-		        </View>
-		        <View style={styles.container}>
-		            <ActivityIndicator size="large" />
-		        </View>
-                </View>
+	        <View style={styles.container}>
+	            <ActivityIndicator size="large" />
+	        </View>
             );
         } else {
             return (
-                <View>
-		        <View style={{height : 60}}>
-			<Navbar
-		            title={"View All My Ads"}
-		            bgColor={'orange'}
-		            left={{
-							icon: "ios-menu",
-							onPress: () => this.props.navigation.toggleDrawer(),
-						}}
-		            style={{height:60}}
-		            />
-		        </View>
-			<View style={{ height : this.state.height - 80, paddingBottom : 20 }}>
-                    <ListView
-                        dataSource={this.state.dataSource}
-                        renderRow={(item) => this.constructTemplate(item)}
-                        onEndReached={() =>
-            this.setState({ isLoadingMore: true }, () => this.fetchMore())}
-                        renderFooter={() => {
-            return (
-              this.state.isLoadingMore &&
-              <View style={{ flex: 1, padding: 10 }}>
-                <ActivityIndicator size="small" />
-              </View>
-            );
-          }}
-                        />
-		        </View>
-                </View>
+<View style={{ height : this.state.height - 80, paddingBottom : 20 }}>
+<ListView
+dataSource={this.state.dataSource}
+renderRow={(item) => this.constructTemplate(item)}
+onEndReached={() =>
+this.setState({ isLoadingMore: true }, () => this.fetchMore())}
+renderFooter={() => {
+return (
+this.state.isLoadingMore &&
+<View style={{ flex: 1, padding: 10 }}>
+<ActivityIndicator size="small" />
+</View>
+);
+}}
+/>
+</View>
             );
         }
     }

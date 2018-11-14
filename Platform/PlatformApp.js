@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import { createStackNavigator, createDrawerNavigator,TabNavigator, createSwitchNavigator } from 'react-navigation';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 import Login from "./Templates/Login";
@@ -42,75 +42,137 @@ const AuthStack = createStackNavigator({
         HomeScreen: {
             screen: HomeScreen,
             navigationOptions: ({ navigation }) => ({
-                tabBarLabel: 'Three',
-                tabBarIcon: ({ tintColor }) => <Icon name="favorite-border" size={35} color={tintColor} />,
                 title: 'HomeScreen',
-                headerStyle: { backgroundColor: 'orange' },
-                headerTintColor: '#fff',
-                //headerRight: <Text navigation={navigation} >test</Text>
             })
         },
         Login: {
             screen: Login,
             navigationOptions: ({ navigation }) => ({
-                tabBarLabel: 'Three',
-                tabBarIcon: ({ tintColor }) => <Icon name="favorite-border" size={35} color={tintColor} />,
                 title: 'Login',
-                headerStyle: { backgroundColor: 'orange' },
-                headerTintColor: '#fff',
-                //headerRight: <Text navigation={navigation} >test</Text>
             })
         },
         Signup: {
             screen: Signup,
             navigationOptions: ({ navigation }) => ({
-                tabBarLabel: 'Three',
-                tabBarIcon: ({ tintColor }) => <Icon name="favorite-border" size={35} color={tintColor} />,
                 title: 'Signup',
-                headerStyle: { backgroundColor: 'orange' },
-                headerTintColor: '#fff',
-                //headerRight: <Text navigation={navigation} >test</Text>
             })
         },
         ForgotPassword: {
             screen: ForgotPassword,
             navigationOptions: ({ navigation }) => ({
-                tabBarLabel: 'Three',
-                tabBarIcon: ({ tintColor }) => <Icon name="favorite-border" size={35} color={tintColor} />,
                 title: 'Forgot Password',
-                headerStyle: { backgroundColor: 'orange' },
-                headerTintColor: '#fff',
-                //headerRight: <Text navigation={navigation} >test</Text>
             })
         },
     },
     {
-        initialRouteName: 'HomeScreen'
+        initialRouteName: 'HomeScreen',
+	navigationOptions: ({ navigation }) => ({
+		headerStyle: { backgroundColor: 'orange' },
+		headerTintColor: '#fff',
+	})
+    }
+);
+
+const AppInnerStack = createStackNavigator(
+    {
+        MyProfile: { 
+		screen: MyProfile,
+		navigationOptions: ({ navigation }) => ({
+			title: 'My Profile',
+			headerLeft: <Icon name="ios-menu" size={35} color={'#fff'} onPress={()=>navigation.toggleDrawer()} style={{paddingLeft : 20}}/>
+		})
+	},
+        AdsGallery: { screen: AdsGallery },
+        Dashboard: { 
+		screen: Dashboard,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Home',
+			headerLeft: <Icon name="ios-menu" size={35} color={'#fff'} onPress={()=>navigation.toggleDrawer()} style={{paddingLeft : 20}}/>
+		})
+	},
+        ViewHistory: { 
+		screen: ViewHistory,
+		navigationOptions: ({ navigation }) => ({
+			title: 'History',
+			headerLeft: <Icon name="ios-menu" size={35} color={'#fff'} onPress={()=>navigation.toggleDrawer()} style={{paddingLeft : 20}}/>
+		})
+	},
+        AdPostPageOne: { 
+		screen: AdPostPageOne,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Post your ads',
+			headerLeft: <Icon name="ios-menu" size={35} color={'#fff'} onPress={()=>navigation.toggleDrawer()} style={{paddingLeft : 20}}/>
+		})
+
+	},
+        AdPostPageEdit: { screen: AdPostPageEdit,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Edit your Ads',
+		})
+	},
+        ViewAllMyAds: { 
+		screen: ViewAllMyAds,
+		navigationOptions: ({ navigation }) => ({
+			title: 'View All My Ads',
+			headerLeft: <Icon name="ios-menu" size={35} color={'#fff'} onPress={()=>navigation.toggleDrawer()} style={{paddingLeft : 20}}/>
+		})
+	},
+        SearchHistory: { screen: SearchHistory },
+        NearByYouAds: { screen: NearByYouAds },
+        AdsView: { screen: AdsView },
+        EditMyProfile: { 
+		screen: EditMyProfile,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Edit My Profile',
+		    })
+	},
+        ChangePassword: { 
+		screen: ChangePassword,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Change Password',
+			headerLeft: <Icon name="ios-menu" size={35} color={'#fff'} onPress={()=>navigation.toggleDrawer()} style={{paddingLeft : 20}}/>
+		    })
+	},
+        ContactUs: { 
+		screen: ContactUs,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Contact Us',
+			headerLeft: <Icon name="ios-menu" size={35} color={'#fff'} onPress={()=>navigation.toggleDrawer()} style={{paddingLeft : 20}}/>
+		    })
+	},
+        Bookmarked: { 
+		screen: Bookmarked,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Bookmarked',
+			headerLeft: <Icon name="ios-menu" size={35} color={'#fff'} onPress={()=>navigation.toggleDrawer()} style={{paddingLeft : 20}}/>
+		    })
+	},
+        Search: { 
+		screen: Search,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Ads List',
+		})
+	},
+    }, 
+    {
+        initialRouteName: 'ContactUs',
+	navigationOptions: ({ navigation }) => ({
+                headerStyle: { backgroundColor: 'orange' },
+                headerTintColor: '#fff',
+                //headerRight: <Text navigation={navigation} >test</Text>
+            })
+
     }
 );
 
 const AppStack = createDrawerNavigator(
     {
-        MyProfile: { screen: MyProfile },
-        AdsGallery: { screen: AdsGallery },
-        Dashboard: { screen: Dashboard },
-        ViewHistory: { screen: ViewHistory },
-        AdPostPageOne: { screen: AdPostPageOne },
-        AdPostPageEdit: { screen: AdPostPageEdit },
-        ViewAllMyAds: { screen: ViewAllMyAds },
-        SearchHistory: { screen: SearchHistory },
-        NearByYouAds: { screen: NearByYouAds },
-        AdsView: { screen: AdsView },
-        EditMyProfile: { screen: EditMyProfile },
-        ChangePassword: { screen: ChangePassword },
-        ContactUs: { screen: ContactUs },
-        Bookmarked: { screen: Bookmarked },
-        Search: { screen: Search },
+        AppInnerStack: { screen: AppInnerStack },
     }, 
     {
         contentComponent: DrawerMenu,
         drawerWidth: wp('80%'),
-        initialRouteName: 'ViewAllMyAds'
+        initialRouteName: 'AppInnerStack'
     }
 );
 

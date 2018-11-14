@@ -18,7 +18,6 @@ import {
 import SearchAdsContent from "./SearchAdsContent";
 import { doPost } from "../Component/MKActions";
 import MKAdsBanner from "../Component/MKAdsBanner";
-import { Navbar } from '../Component/navbar-native/index.js';
 
 export default class Search extends Component {
 
@@ -52,13 +51,15 @@ export default class Search extends Component {
     }
 
     async componentDidMount() {
-        var paramsArray = this.props.value;
+        //var paramsArray = this.props.value;
+	var paramsArray = this.props.navigation.state.params;
         var searchUserId = await AsyncStorage.getItem('userid');
 
 		
         if (paramsArray != null) {
             var searchText = this.getValueFromArray(paramsArray, 'searchText');
             var categoryId = this.getValueFromArray(paramsArray, 'categoryId');
+		//alert("searchText "+ searchText + "categoryId "+ categoryId+ "searchUserId "+ searchUserId)
             await this.setState({categoryId: categoryId, searchText: searchText, searchUserId : searchUserId});
         }
         await this.dataLoading();
@@ -170,15 +171,6 @@ export default class Search extends Component {
         return (
             <View style={[{height : this.state.height, flex: 1, width : layoutWidth, backgroundColor:'#59C2AF'}]}
                   onLayout={()=> this.updateLayout()}>
-		<Navbar
-                    title={"Ads List"}
-                    bgColor={'orange'}
-                    left={{
-						icon: "ios-arrow-back",
-						onPress: () => this.onPressRedirectToGoBack()
-					}}
-                    style={{height:60}}
-                    />
                 <ScrollView >
                     <ListView style={{paddingBottom:15}} dataSource={this.state.listItems}
                               renderRow={(item) => this.constructTemplate(item)}

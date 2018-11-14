@@ -22,7 +22,7 @@ import { doPost } from "../Component/MKActions";
 import Swiper from 'react-native-swiper';
 var {height, width} = Dimensions.get('window');
 export default class AdsView extends Component {
-
+	static navigationOptions = { header: null };
 	constructor(props: Object) {
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 

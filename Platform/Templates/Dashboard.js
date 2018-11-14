@@ -21,7 +21,6 @@ import MKButton from "../Component/MKButton";
 import MKTextInput from "../Component/MKTextInput";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { doPost } from "../Component/MKActions";
-import { Navbar } from '../Component/navbar-native/index.js';
 import {  AdMobInterstitial } from 'react-native-admob';
 
 Geocoder.fallbackToGoogle("AIzaSyCbkW5l6iPkWb551pynfeBn3Lzb69_FFsY");
@@ -191,15 +190,6 @@ setTimeout(function(){
 
     		return ( 
 	<View style={[{height : this.state.height, flex: 1, width : layoutWidth, backgroundColor:'#59C2AF'}]} onLayout={()=> this.updateLayout()} >
-		<Navbar
-                    title={"Home"}
-                    bgColor={'orange'}
-                    left={{
-						icon: "ios-menu",
-						onPress: () => this.props.navigation.toggleDrawer(),
-					}}
-                    style={{height:60}}
-                    />
 		<ScrollView style={{ flex: 1}}>
 		<View style={{alignItems:'center', marginTop: 10, marginBottom: 10}}>
 			<View style={{width: layoutWidth-10, height: 50, borderRadius: 3, backgroundColor: '#FFF'}}>

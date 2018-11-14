@@ -24,7 +24,6 @@ import MKSpinner from "../Component/MKSpinner";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PickerModal from 'react-native-picker-modal';
-import { Navbar } from '../Component/navbar-native/index.js';
 
 var ImagePicker = require('react-native-image-picker');
 
@@ -871,16 +870,6 @@ export default class AdPostPageEdit extends Component {
         return (
             <View style={[{height : this.state.height, flex: 1, width : layoutWidth}]}
                   onLayout={()=> this.updateLayout()}>
-		<Navbar
-                    title={"Edit your ads"}
-                    bgColor={'orange'}
-                    left={{
-						icon: "ios-menu",
-						onPress: () => this.props.navigation.toggleDrawer(),
-					}}
-                    style={{height:60}}
-                    />
-
                 <ScrollView style={{ flex: 1, padding : 10}}>
                     {
                         locationList
