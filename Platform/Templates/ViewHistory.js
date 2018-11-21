@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, StyleSheet, Animated, Text, TextInput, ScrollView, Dimensions, TouchableOpacity, AsyncStorage, Image, ListView} from "react-native";
+import {View, ActivityIndicator, StyleSheet, Animated, Text, TextInput, ScrollView, Dimensions, TouchableOpacity, AsyncStorage, Image, ListView} from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { doPost } from "../Component/MKActions";
 import MKButton from "../Component/MKButton";
@@ -9,23 +9,23 @@ export default class ViewHistory extends Component {
 
     constructor(props:Object) {
         var {height, width} = Dimensions.get('window');
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
         super(props);
+        this.fetchMore = this._fetchMore.bind(this);
+	this.navigate=this.props.navigation.navigate;
         this.state = {
-            height: height,
-            width: width,
-            page : '0',
-            left_rec : '',
-            rec_limit : '',
-            historyArray : [],
-            ds: ds,
-            listItems: ds.cloneWithRows([])
+		height: height,
+		width: width,
+		dataSource: null,
+		isLoading: true,
+		isLoadingMore: false,
+		_data: null,
+		page : '0',
+		leftRecord: 0,
         };
     }
 
     async componentDidMount() {
-        this.loadsearchData("0");
+	this.fetchMore()
     }
 
 
@@ -55,6 +55,70 @@ export default class ViewHistory extends Component {
             </View>;
         }
     }
+
+	async _fetchMore() {
+        	var userid = await AsyncStorage.getItem('userid');
+
+		var stateLeftRecord = this.state.leftRecord;
+		if(this.state.isLoading || stateLeftRecord >0 ){
+
+		var postJson = new FormData();
+		postJson.append("page", this.state.page);
+		postJson.append("getListFromPage", "View My History");
+		postJson.append("rf", "json");
+		postJson.append("userid", userid);
+		postJson.append("rec_limit", 10);
+
+		var subUrl = "getHistoryList";
+		var responseJson = await doPost(subUrl, postJson);
+
+
+		if (responseJson != null) {
+			var searchData = responseJson['historyArray'];
+			var page = parseInt(responseJson['page']);
+			var nextPage = page + 1;
+			var previousPage = page - 1;
+			var leftRecord = parseInt(responseJson['left_rec']);
+
+		        if (leftRecord > 0)
+		            await this.setState({page : nextPage });
+
+			    if (searchData != null) {
+				if(this.state.isLoading){
+					let dataSource = new ListView.DataSource({
+						rowHasChanged: (r1, r2) => r1 !== r2,
+					});
+
+					await this.setState({
+						dataSource: dataSource.cloneWithRows(searchData),
+						isLoadingMore: false,
+						_data: searchData,
+						leftRecord : leftRecord,
+						nextPage : nextPage
+					});
+					await this.setState({
+						isLoading : false
+					});
+				} else {
+					const data = this.state._data.concat(searchData);
+					await this.setState({
+						dataSource: this.state.dataSource.cloneWithRows(data),
+						isLoadingMore: false,
+						_data: data,
+						leftRecord : leftRecord,
+						nextPage : nextPage
+					});
+				}
+			    }
+				else {
+			await this.setState({isLoadingMore : false});
+				}
+			};
+
+		} else {
+			await this.setState({isLoadingMore : false});
+		}
+	}
 
     async loadsearchData(page){
 
@@ -93,53 +157,37 @@ export default class ViewHistory extends Component {
         this.setState({height: height, width: width});
     }
 
-    render() {
-        var previousPage = 0;
-        var nextPage = 0;
-        var layoutWidth = this.state.width - 30;
-        var page = this.state.page;
-        if(page != ""){
-            page = parseInt(page);
-            previousPage = page - 1;
-            nextPage =  page + 1;
-        }
-
-        var left_rec = this.state.left_rec;
-        var rec_limit = this.state.rec_limit;
-
-        var btnPrevious = null;
-        var btnNext = null;
-        if(previousPage>= 0){
-            btnPrevious = <MKButton onPress={()=> this.loadsearchData(previousPage)} style={{backgroundColor : 'orange', borderColor: 'orange', height:50, width:50}} textStyle={{color: '#FFF'}} activityIndicatorColor={'orange'}>
-                <Icon name={"arrow-circle-o-left"} color={"#FFF"} size={25} />
-            </MKButton>;
-                //'&nbsp;<a href="javascript:void(0)" onclick="loadsearchData('.$previousPage.')" class="btn btn-danger btn-sm"><span class="fa fa-arrow-left text-white fa-1x"></span>&nbsp;Previous '.$rec_limit.'</a>';
-        }
-
-        if(left_rec>0){
-            btnNext = <MKButton onPress={()=> this.loadsearchData(nextPage)} style={{backgroundColor : '#59C2AF', borderColor: '#59C2AF', height:50, width:50}} textStyle={{color: '#FFF'}} activityIndicatorColor={'orange'}>
-                <Icon name={"arrow-circle-o-right"} color={"#FFF"} size={25} />
-            </MKButton>;
-        }
-
-
-        return (
-            <View style={[{height : this.state.height, flex: 1, width : this.state.width}]}
-                  onLayout={()=> this.updateLayout()}>
-                <ScrollView >
-                    <View style={{flex: 1,padding:5, alignSelf:'center'}}>
-                        <ListView dataSource={this.state.listItems}
-                                  renderRow={(item) => this.renderRow(item)}
-                                  enableEmptySections={true}/>
-                    </View>
-			<MKAdsBanner />
-                </ScrollView>
-                <View style={{padding : 5}}></View>
-                <View style={{flexDirection : 'row', paddingBottom : 30, right: 5, top: this.state.height - 160, position: 'absolute'}}>
-                    <View style={{ width : 60}}>{btnPrevious}</View>
-                    <View style={{ width : 60}}>{btnNext}</View>
-                </View>
-            </View>);
-    }
+	render() {
+		if (this.state.isLoading) {
+		    return (
+			<View style={{        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#ecf0f1'}}>
+			    <ActivityIndicator size="large" />
+			</View>
+		    );
+		} else {
+			return (
+				<View style={{ height : this.state.height - 80, paddingBottom : 20 }}>
+					<ListView
+						dataSource={this.state.dataSource}
+						renderRow={(item) => this.renderRow(item)}
+						onEndReached={() =>
+						this.setState({ isLoadingMore: true }, () => this.fetchMore())}
+						renderFooter={() => {
+							return (
+								this.state.isLoadingMore &&
+								<View style={{ flex: 1, padding: 10, height : 50 }}>
+								<ActivityIndicator size="small" />
+								</View>
+							);
+						}
+					}
+					/>
+				</View>
+			);
+		}
+	}
 
 }

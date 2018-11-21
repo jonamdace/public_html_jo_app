@@ -155,7 +155,7 @@ export default class EditMyProfile extends Component {
         });
         await that.updateMyState(errorsJson, 'errorsJson');
         if(isValid == 1){
-            that.props.updateLoading(true);
+            //that.props.updateLoading(true);
             var postJson = new FormData();
             postJson.append("name", that.state.name);
             postJson.append("email", that.state.emailId);
@@ -190,7 +190,7 @@ export default class EditMyProfile extends Component {
                     position: 'bottom',
                 });
             }
-            that.props.updateLoading(false);
+            //that.props.updateLoading(false);
         }
     }
 
@@ -324,7 +324,7 @@ export default class EditMyProfile extends Component {
                         <MKTextInput label={'Name'} highlightColor={inputHighlightColor}
                                      onChangeText={(name) => this.updateMyState(name, 'name')}
                                      value = {this.state.name}
-                                     inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
+                                     inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth,paddingBottom : -10}}
                                      returnKeyType={'next'} ref="name"
                                      onSubmitEditing={(event) => this.focusNextField('emailId')}
                                      onFocus={()=>this.onFocus()}
@@ -334,14 +334,24 @@ export default class EditMyProfile extends Component {
                         <MKTextInput label={'Email'} highlightColor={inputHighlightColor}
                                      onChangeText={(emailId) => this.updateMyState(emailId, 'emailId')}
                                      value = {this.state.emailId}
-                                     inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
+                                     inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth,paddingBottom : -10}}
                                      returnKeyType={'next'} ref="emailId"
-                                     //onSubmitEditing={(event) => this.focusNextField('state')}
+                                     onSubmitEditing={(event) => this.focusNextField('address')}
                                      onFocus={()=>this.onFocus()}
                             />
                         { inputEmailError }
 
-                        <View style={{paddingTop : 30}}></View>
+                        <MKTextInput label={'address'} highlightColor={inputHighlightColor}
+                                     onChangeText={(address) => this.updateMyState(address, 'address')}
+                                     value = {this.state.address}
+                                     inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth,paddingBottom : -10}}
+                                     returnKeyType={'next'} ref="address"
+                                     onSubmitEditing={(event) => this.focusNextField('address')}
+                                     onFocus={()=>this.onFocus()}
+                            />
+                        { inputaddressError }
+                        <View style={{paddingTop: 30}}></View>
+
                         <Picker
                             selectedValue={this.state.stateId}
                             onValueChange={
@@ -361,17 +371,6 @@ export default class EditMyProfile extends Component {
                             { pickerCityItem }
                         </Picker>
                         { inputdistrictIdError }
-
-                        <MKTextInput label={'address'} highlightColor={inputHighlightColor}
-                                     onChangeText={(address) => this.updateMyState(address, 'address')}
-                                     value = {this.state.address}
-                                     inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
-                                     returnKeyType={'next'} ref="address"
-                                     onSubmitEditing={(event) => this.focusNextField('address')}
-                                     onFocus={()=>this.onFocus()}
-                            />
-                        { inputaddressError }
-                        <View style={{paddingTop: 30}}></View>
 
                         <View style={{flexDirection: 'row', padding: 5}}>
 

@@ -101,7 +101,7 @@ export default class ContactUs extends Component {
         });
         await that.updateMyState(errorsJson, 'errorsJson');
         if(isValid == 1){
-            that.props.updateLoading(true);
+            //that.props.updateLoading(true);
 
             var postJson = new FormData();
             postJson.append("name", that.state.name);
@@ -131,7 +131,7 @@ export default class ContactUs extends Component {
                     position: 'bottom',
                 });
             }
-            that.props.updateLoading(false);
+            //that.props.updateLoading(false);
         }
     }
 
@@ -203,7 +203,7 @@ export default class ContactUs extends Component {
                         <MKTextInput label={'Name'} highlightColor={inputHighlightColor}
                                      onChangeText={(name) => this.updateMyState(name, 'name')}
                                      value = {this.state.name}
-                                     inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
+                                     inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth,paddingBottom : -10}}
                                      returnKeyType={'next'} ref="name"
                                      onSubmitEditing={(event) => this.focusNextField('emailId')}
                                      onFocus={()=>this.onFocus()}
@@ -213,7 +213,7 @@ export default class ContactUs extends Component {
                         <MKTextInput label={'Email'} highlightColor={inputHighlightColor}
                                      onChangeText={(emailId) => this.updateMyState(emailId, 'emailId')}
                                      value = {this.state.emailId}
-                                     inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
+                                     inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth, paddingBottom : -10}}
                                      returnKeyType={'next'} ref="emailId"
                                      onSubmitEditing={(event) => this.focusNextField('mobileNumber')}
                                      onFocus={()=>this.onFocus()}
@@ -223,7 +223,7 @@ export default class ContactUs extends Component {
                         <MKTextInput label={'Mobile Number'} highlightColor={inputHighlightColor}
                                      onChangeText={(mobileNumber) => this.updateMyState(mobileNumber, 'mobileNumber')}
                                      value = {this.state.mobileNumber}
-                                     inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
+                                     inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth, paddingBottom : -10}}
                                      keyboardType={'numeric'} maxLength={10} returnKeyType={'next'} ref="mobileNumber"
                                      onSubmitEditing={(event) => this.focusNextField('description')}
                                      onFocus={()=>this.onFocus()}
@@ -233,11 +233,10 @@ export default class ContactUs extends Component {
                         <MKTextInput label={'Description'} highlightColor={inputHighlightColor}
                                      onChangeText={(description) => this.updateMyState(description, 'description')}
                                      value = {this.state.description}
-                                     inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
+                                     inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth, paddingBottom : -10}}
                                      returnKeyType={'done'} ref="description"
                             />
                         { inputDescriptionError }
-
                         <View style={{paddingTop : 25}}>
                             <PickerModal
                                 selectedValue={this.state.categoryId}

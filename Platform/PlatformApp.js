@@ -155,7 +155,7 @@ const AppInnerStack = createStackNavigator(
 	},
     }, 
     {
-        initialRouteName: 'ContactUs',
+        initialRouteName: 'ViewHistory',
 	navigationOptions: ({ navigation }) => ({
                 headerStyle: { backgroundColor: 'orange' },
                 headerTintColor: '#fff',
