@@ -270,7 +270,7 @@ export default class Login extends Component {
 			<MKTextInput label={'Name'} highlightColor={inputHighlightColor}
 						 onChangeText={(inputName) => this.updateMyState(inputName, 'inputName')}
 						 value = {this.state.inputName}
-						 inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
+						 inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth, paddingBottom : -10}}
 						 returnKeyType={'next'} ref="inputName"
 						 onSubmitEditing={(event) => this.focusNextField('inputEmail')}
 						 onFocus={()=>this.onFocus()}
@@ -280,7 +280,7 @@ export default class Login extends Component {
 			<MKTextInput label={'Email'} highlightColor={inputHighlightColor}
 						 onChangeText={(inputEmail) => this.updateMyState(inputEmail, 'inputEmail')}
 						 value = {this.state.inputEmail}
-						 inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
+						 inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth, paddingBottom : -10}}
 						 returnKeyType={'next'} ref="inputEmail"
 						 onSubmitEditing={(event) => this.focusNextField('inputMobileNumber')}
 						 onFocus={()=>this.onFocus()}
@@ -290,7 +290,7 @@ export default class Login extends Component {
 			<MKTextInput label={'Mobile Number'} highlightColor={inputHighlightColor}
 						 onChangeText={(inputMobileNumber) => this.updateMyState(inputMobileNumber, 'inputMobileNumber')}
 						 value = {this.state.inputMobileNumber}
-						 inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
+						 inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth, paddingBottom : -10}}
 						 keyboardType={'numeric'} maxLength={10} returnKeyType={'next'} ref="inputMobileNumber"
 						 onSubmitEditing={(event) => this.focusNextField('inputPassword')}
 						 onFocus={()=>this.onFocus()}
@@ -300,7 +300,7 @@ export default class Login extends Component {
 			<MKTextInput label={'Password'} highlightColor={inputHighlightColor}
 						 onChangeText={(inputPassword) => this.updateMyState(inputPassword, 'inputPassword')}
 						 value = {this.state.inputPassword}
-						 inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
+						 inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth, paddingBottom : -10}}
 						 secureTextEntry={true} returnKeyType={'done'} ref="inputPassword"
 						 onSubmitEditing={(event) => this.doSignup()}
 						 onFocus={()=>this.onFocus()}
@@ -320,7 +320,7 @@ export default class Login extends Component {
 				<MKTextInput label={'OTP'} highlightColor={inputHighlightColor}
 							 onChangeText={(inputOtp) => this.updateMyState(inputOtp, 'inputOtp')}
 							 value = {this.state.inputOtp}
-							 inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
+							 inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth, paddingBottom : -10}}
 							 keyboardType={'numeric'} maxLength={6} returnKeyType={'go'} ref="inputOtp"
 							 onSubmitEditing={(event) => this.verifyUserAndOtp()}
 							 onFocus={()=>this.onFocusOtp()}

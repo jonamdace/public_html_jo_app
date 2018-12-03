@@ -175,11 +175,11 @@ export default class Search extends Component {
                     <ListView style={{paddingBottom:15}} dataSource={this.state.listItems}
                               renderRow={(item) => this.constructTemplate(item)}
                               enableEmptySections={true}/>
-			<MKAdsBanner />
                     <View style={{flexDirection:"row", width : layoutWidth, paddingBottom : 20}}>
                         <View style={ {width : layoutWidth/2}}>{ previousBtn }</View>
                         <View style={ {width : layoutWidth/2}}>{ nextBtn }</View>
                     </View>
+			<MKAdsBanner />
                 </ScrollView>
             </View>
         );

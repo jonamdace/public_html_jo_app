@@ -6,8 +6,9 @@ import CommonStyle from "../Styles/CommonStyle";
 import MKButton from "../Component/MKButton";
 import MKTextInput from "../Component/MKTextInput";
 import { doPost } from "../Component/MKActions";
+import MKSpinner from "../Component/MKSpinner";
 
-export default class Login extends Component {
+export default class ForgotPassword extends Component {
 
   	constructor(props: Object) {
 		var {height, width} = Dimensions.get('window');
@@ -15,6 +16,7 @@ export default class Login extends Component {
 		this.state = {
 			height : height,
 			width : width,
+			isLoading : false,
 			errorsJson:{
 				inputMobileNumber : null
 			},
@@ -36,7 +38,12 @@ export default class Login extends Component {
 		};
 		this.navigate=this.props.navigation.navigate;
 		this.onFocus = this.onFocus.bind(this);
+		this.updateParentState = this.updateParentState.bind(this);
 		this.focusNextField = this.focusNextField.bind(this);
+	}
+
+	updateParentState(obj){
+		this.setState(obj);
 	}
 
 	focusNextField(nextField) {
@@ -113,10 +120,10 @@ export default class Login extends Component {
 
 		await that.updateMyState(errorsJsonOtp, 'errorsJsonOtp');
 		if(isValid == 1){
-			that.props.updateLoading(true);
+			await that.setState({isLoading : true});
 			await that.updateMyState('3', 'otpStatus');
 			setTimeout(function(){
-				that.props.updateLoading(false);
+				that.setState({isLoading : false});
 			}, 200);
 		}
 	}
@@ -145,8 +152,7 @@ export default class Login extends Component {
 		if(isValid == 1){
 			var otpUserId = that.state['otpUserId'];
 			if(otpUserId > 0){
-				that.props.updateLoading(true);
-
+				await that.setState({isLoading : true});
 				var postJson = new FormData();
 				postJson.append("mobileNumber", that.state['inputMobileNumber']);
 				postJson.append("password", that.state['inputPassword']);
@@ -169,7 +175,7 @@ export default class Login extends Component {
 					});
 
 					setTimeout(function(){
-						that.props.updateLoading(false);
+						that.setState({isLoading : false});
 					}, 200);
 				}
 			}
@@ -199,8 +205,8 @@ export default class Login extends Component {
 		});
 		await that.updateMyState(errorsJson, 'errorsJson');
 		if(isValid == 1){
-			that.props.updateLoading(true);
-
+			await that.setState({isLoading : true});
+			await that.setState({isLoading : true});
 			var postJson = new FormData();
 			postJson.append("mobileNumber", that.state.inputMobileNumber);
 			var subUrl = "confirmUserAndSendOtpFromApps";
@@ -214,7 +220,7 @@ export default class Login extends Component {
 				});
 			}
 
-			that.props.updateLoading(false);
+			await that.setState({isLoading : false});
 		}
 	}
 
@@ -274,7 +280,7 @@ export default class Login extends Component {
 		var otpContent = <View><MKTextInput label={'Mobile Number'} highlightColor={inputHighlightColor}
 						onChangeText={(inputMobileNumber) => this.updateMyState(inputMobileNumber, 'inputMobileNumber')}
 						value = {this.state.inputMobileNumber}
-						inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
+						inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth, paddingBottom : -10}}
 						keyboardType={'numeric'} maxLength={10} returnKeyType={'go'} ref="inputMobileNumber" 
 						onSubmitEditing={(event) => this.confirmUserAndSendOtp()}
 						onFocus={()=>this.onFocus()}
@@ -293,7 +299,7 @@ export default class Login extends Component {
 					<MKTextInput label={'OTP'} highlightColor={inputHighlightColor}
 						onChangeText={(inputOtp) => this.updateMyState(inputOtp, 'inputOtp')}
 						value = {this.state.inputOtp}
-						inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
+						inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth, paddingBottom : -10}}
 						keyboardType={'numeric'} maxLength={6} returnKeyType={'go'} ref="inputOtp" 
 						onSubmitEditing={(event) => this.verifyUserAndOtp()}
 						onFocus={()=>this.onFocusOtp()}
@@ -316,8 +322,8 @@ export default class Login extends Component {
 						<MKTextInput label={'Password'} highlightColor={inputHighlightColor}
 							onChangeText={(inputPassword) => this.updateMyState(inputPassword, 'inputPassword')}
 							value = {this.state.inputPassword}
-							inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
-							maxLength={6} returnKeyType={'next'} ref="inputPassword" 
+							inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth, paddingBottom : -10}}
+							maxLength={6} secureTextEntry={true}  returnKeyType={'next'} ref="inputPassword" 
 							onFocus={()=>this.onFocusPassword()}
 							onSubmitEditing={(event) => this.focusNextField('inputConfirmPassword')}
 							/>
@@ -327,8 +333,8 @@ export default class Login extends Component {
 						<MKTextInput label={'Confirm Password'} highlightColor={inputHighlightColor}
 							onChangeText={(inputConfirmPassword) => this.updateMyState(inputConfirmPassword, 'inputConfirmPassword')}
 							value = {this.state.inputConfirmPassword}
-							inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
-							maxLength={6} returnKeyType={'go'} ref="inputConfirmPassword" 
+							inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth, paddingBottom : -10}}
+							maxLength={6} secureTextEntry={true}  returnKeyType={'go'} ref="inputConfirmPassword" 
 							onFocus={()=>this.onFocusPassword()}
 							onSubmitEditing={(event) => this.setPassword()}
 							/>
@@ -356,6 +362,7 @@ export default class Login extends Component {
 				</View>
 			</ScrollView>
 			{dynamicBtn}
+<MKSpinner visible={this.state.isLoading} updateParentState={this.updateParentState} textContent={"Please wait"} cancelable={true} textStyle={{color: '#FFF'}} />
 		</View>
 		);
 	}

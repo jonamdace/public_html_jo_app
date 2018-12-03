@@ -14,3 +14,14 @@ export async function doPost(subUrl, postJsonData){
 	return response; 
 }
 
+export async function s4(){
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+}
+
+export async function guid(){
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
+

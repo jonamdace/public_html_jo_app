@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {View, ActivityIndicator, StyleSheet, Animated, Text, TextInput, ScrollView, Dimensions, TouchableOpacity, AsyncStorage, Image, ListView} from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { doPost } from "../Component/MKActions";
+import { doPost, guid } from "../Component/MKActions";
 import MKButton from "../Component/MKButton";
 import MKAdsBanner from "../Component/MKAdsBanner";
 
@@ -31,6 +31,8 @@ export default class ViewHistory extends Component {
 
     renderRow(item) {
         if(item != undefined){
+
+		if(item.id != "ads"){
             return <View style={{padding: 5, margin: 5, backgroundColor: '#E9E5BE'}}>
                 <View style={{flexDirection : 'row', padding:5}}>
                     <View style={{width : 110 }}><Text style={{fontSize : 14, fontWeight:'bold' }}>Date</Text></View>
@@ -53,6 +55,11 @@ export default class ViewHistory extends Component {
                     <View><Text>: {item.description}</Text></View>
                 </View>
             </View>;
+
+		} else {
+			var gid= guid();
+			return <View style={{padding : 5}}><MKAdsBanner /></View>;
+		}
         }
     }
 
@@ -101,6 +108,7 @@ export default class ViewHistory extends Component {
 					});
 				} else {
 					const data = this.state._data.concat(searchData);
+					data.push({"id" : "ads"})
 					await this.setState({
 						dataSource: this.state.dataSource.cloneWithRows(data),
 						isLoadingMore: false,
@@ -170,6 +178,12 @@ export default class ViewHistory extends Component {
 		} else {
 			return (
 				<View style={{ height : this.state.height - 80, paddingBottom : 20 }}>
+					{
+
+					//this.state._data.length > 0 ? <Text>{JSON.stringify(this.state._data[0])}</Text> : null
+
+					}
+					
 					<ListView
 						dataSource={this.state.dataSource}
 						renderRow={(item) => this.renderRow(item)}

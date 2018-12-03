@@ -609,7 +609,7 @@ export default class AdPostPageOne extends Component {
                          multiline={true}
                          onChangeText={(adsTitle) => this.updateMyState(adsTitle, 'adsTitle')}
                          value={this.state.adsTitle}
-                         inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
+                         inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth,paddingBottom : -10}}
                          returnKeyType={'next'} ref="adsTitle"
                          onSubmitEditing={(event) => this.focusNextField('startDate')}
                          onFocus={()=>this.onFocus()}
@@ -620,7 +620,7 @@ export default class AdPostPageOne extends Component {
                              editable={false}
                              onChangeText={(startDate) => this.updateMyState(startDate, 'startDate')}
                              value={this.state.startDate}
-                             inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth - 50}}
+                             inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth - 5,paddingBottom : -10}}
                              returnKeyType={'next'} ref="startDate"
                              onSubmitEditing={(event) => this.focusNextField('noOfDaysToActive')}
                              onFocus={this._showDateTimePicker}
@@ -639,7 +639,7 @@ export default class AdPostPageOne extends Component {
                          keyboardType={'numeric'} maxLength={2}
                          onChangeText={(noOfDaysToActive) => this.updateMyState(noOfDaysToActive, 'noOfDaysToActive')}
                          value={this.state.noOfDaysToActive}
-                         inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
+                         inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth,paddingBottom : -10}}
                          returnKeyType={'next'} ref="noOfDaysToActive"
                          onSubmitEditing={(event) => this.focusNextField('adsDescription')}
                          onFocus={()=>this.onFocus()}
@@ -649,7 +649,7 @@ export default class AdPostPageOne extends Component {
                          multiline={true}
                          onChangeText={(adsDescription) => this.updateMyState(adsDescription, 'adsDescription')}
                          value={this.state.adsDescription}
-                         inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
+                         inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth,paddingBottom : -10}}
                          returnKeyType={'next'} ref="description"
                          onSubmitEditing={(event) => this.focusNextField('adsDescription')}
                 />
@@ -728,7 +728,7 @@ export default class AdPostPageOne extends Component {
                          multiline={true}
                          onChangeText={(address) => that.updateMyState(address, 'address')}
                          value={that.state.address}
-                         inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
+                         inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth,paddingBottom : -10}}
                          returnKeyType={'next'} ref="address"
                          onSubmitEditing={(event) => that.focusNextField('adsTitle')}
                          onFocus={()=>that.onFocus()}
@@ -789,7 +789,7 @@ export default class AdPostPageOne extends Component {
                                        multiline={true}
                                        onChangeText={(val) => that.updateMyDynamicState(val, [capturedVariableId])}
                                        value={that.state.sendDynamicFieldsJson[capturedVariableId] }
-                                       inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth}}
+                                       inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth,paddingBottom : -10}}
                                        returnKeyType={'next'} ref={capturedVariableId}
                               />
                       </View>

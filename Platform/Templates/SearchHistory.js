@@ -66,10 +66,9 @@ export default class Search extends Component {
 
     async onPressSearch() {
         var searchText = this.state.searchText;
-        var listItems = null;
+        var listItems = await AsyncStorage.getItem('listItems');
         var that = this;
-        if (searchText.length > 0) {
-            listItems = await AsyncStorage.getItem('listItems');
+        if (searchText.length > 0) { 
             if (listItems == null) {
                 listItems = [];
             } else {
@@ -80,14 +79,14 @@ export default class Search extends Component {
             that.updateMyState(that.state.ds.cloneWithRows(listItems), 'listItems');
             await AsyncStorage.setItem('listItems', JSON.stringify(listItems));
             await that.updateMyState(listItems, 'searchTextList');
-            await this.onPressRedirectToPassData('Search', searchText);
+            this.onPressRedirectToPassData('Search', searchText);
         }
     }
 
     async onPressToClear() {
         var listItems = [];
         var that = this;
-        await AsyncStorage.removeItem('listItems');
+        //await AsyncStorage.removeItem('listItems');
         await AsyncStorage.setItem('listItems', JSON.stringify(listItems));
         that.updateMyState(that.state.ds.cloneWithRows([]), 'listItems');
         await that.updateMyState([], 'searchTextList');

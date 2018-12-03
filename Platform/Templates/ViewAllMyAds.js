@@ -93,6 +93,7 @@ export default class Application extends Component {
 		    var previousPage = page - 1;
 		    if (searchData != null) {
 			const data = this.state._data.concat(searchData);
+			data.push({"id" : "ads"})
 			await this.setState({
 				dataSource: this.state.dataSource.cloneWithRows(data),
 				isLoadingMore: false,
@@ -168,10 +169,14 @@ export default class Application extends Component {
     }
 
     constructTemplate(item) {
-        return <SearchAdsContent imgWidth={this.state.width-50}
+	if(item.id != "ads"){
+        	return <SearchAdsContent imgWidth={this.state.width-50}
                                  imgHeight={150}
                                  navigation={this.navigate}
                                  postJson={item} fromPage="View All My Ads" />;
+	} else {
+		return <View style={{padding : 5}}><MKAdsBanner /></View>;
+	}
     }
 
     render() {

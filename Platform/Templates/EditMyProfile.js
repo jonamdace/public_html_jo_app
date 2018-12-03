@@ -6,6 +6,8 @@ import CommonStyle from "../Styles/CommonStyle";
 import MKButton from "../Component/MKButton";
 import MKTextInput from "../Component/MKTextInput";
 import { doPost } from "../Component/MKActions";
+import MKAdsBanner from "../Component/MKAdsBanner";
+import MKSpinner from "../Component/MKSpinner";
 var MessageBarAlert = require('react-native-message-bar').MessageBar;
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 var ImagePicker = require('react-native-image-picker');
@@ -16,28 +18,29 @@ export default class EditMyProfile extends Component {
         var {height, width} = Dimensions.get('window');
         super(props);
         this.state = {
-            height : height,
-            width : width,
-            errorsJson:{
-                address : null,
-                districtId : null,
-                stateId : null,
-                emailId : null,
-                name : null
-            },
-            address : '',
-            districtId : '',
-            stateId : '',
-            emailId : '',
-            name : '',
-            userid : '',
-            userImagePath : '',
-            avatarSource : null,
-            avatarSourceUri : null,
-            avatarSourceName : null,
-            avatarSourceFileType : null,
-            pickerCityList: [],
-            pickerStateList : []
+            	height : height,
+            	width : width,
+		isLoading : false,
+            	errorsJson:{
+		        address : null,
+		        districtId : null,
+		        stateId : null,
+		        emailId : null,
+		        name : null
+		},
+		address : '',
+		districtId : '',
+		stateId : '',
+		emailId : '',
+		name : '',
+		userid : '',
+		userImagePath : '',
+		avatarSource : null,
+		avatarSourceUri : null,
+		avatarSourceName : null,
+		avatarSourceFileType : null,
+		pickerCityList: [],
+		pickerStateList : []
 
         };
 	this.navigate=this.props.navigation.navigate;
@@ -50,7 +53,7 @@ export default class EditMyProfile extends Component {
         });
         await this.getStateList();
 
-        //this.props.updateLoading(true);
+	await this.setState({isLoading : true});
         var postJson = new FormData();
         postJson.append("userid", userid);
         postJson.append("rf", "json");
@@ -64,9 +67,9 @@ export default class EditMyProfile extends Component {
                 emailId : response.email,
                 name : response.name
             });
-            //this.props.updateLoading(false);
             this.getCityList(response.stateId);
         }
+	await this.setState({isLoading : false});
         MessageBarManager.registerMessageBar(this.refs.alert);
     }
 
@@ -91,7 +94,7 @@ export default class EditMyProfile extends Component {
         this.setState({
             districtId : ""
         });
-        //this.props.updateLoading(true);
+	await this.setState({isLoading : true});
         var postJson = new FormData();
         postJson.append("countryId", 1);
         postJson.append("divId", "cityIdDiv");
@@ -104,7 +107,7 @@ export default class EditMyProfile extends Component {
                 pickerCityList : response
             });
         }
-        //this.props.updateLoading(false);
+	await this.setState({isLoading : false});
     }
 
     componentWillUnmount() {
@@ -155,7 +158,8 @@ export default class EditMyProfile extends Component {
         });
         await that.updateMyState(errorsJson, 'errorsJson');
         if(isValid == 1){
-            //that.props.updateLoading(true);
+
+		await this.setState({isLoading : true});
             var postJson = new FormData();
             postJson.append("name", that.state.name);
             postJson.append("email", that.state.emailId);
@@ -170,28 +174,20 @@ export default class EditMyProfile extends Component {
             })
             postJson.append("rf", "json");
             var subUrl="updateMyProfile";
-            var response = await doPost(subUrl, postJson);
-            if(response != null && response != "" && response != undefined){
-                var status = response.status;
-                var message = response.message;
-                var alertType = "";
-                var title = "";
-                if(status == 1){
-                    alertType = 'success';
-                    title = "Success!";
-                } else {
-                    title = "Error";
-                    alertType = 'error';
-                }
-                MessageBarManager.showAlert({
-                    title: title,
-                    message: message,
-                    alertType: alertType,
-                    position: 'bottom',
-                });
-            }
-            //that.props.updateLoading(false);
+            doPost(subUrl, postJson);
+		var alertType = "";
+		var title = "";
+		    alertType = 'success';
+		    title = "Success!";
+		MessageBarManager.showAlert({
+		    title: title,
+		    message: "Successfully updated!",
+		    alertType: alertType,
+		    position: 'bottom',
+		});
+            
         }
+	await this.setState({isLoading : false});
     }
 
     onFocus() {
@@ -400,7 +396,11 @@ export default class EditMyProfile extends Component {
 
                         <View style={{paddingTop: 30}}></View>
                     </View>
+
+		<MKAdsBanner />
+<MKSpinner visible={this.state.isLoading} updateParentState={this.updateParentState} textContent={"Please wait"} cancelable={true} textStyle={{color: '#FFF'}} />
                 </ScrollView>
+
                 {dynamicBtn}
                 <MessageBarAlert ref="alert" />
             </View>

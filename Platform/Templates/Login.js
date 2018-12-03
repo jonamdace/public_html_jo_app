@@ -19,6 +19,7 @@ export default class Login extends Component {
 		this.state = {
 			height : height,
 			width : width,
+			isLoading : false,
 			errorsJson:{
 				inputMobileNumber : null,
 				inputPassword : null							
@@ -29,6 +30,11 @@ export default class Login extends Component {
 		this.navigate=this.props.navigation.navigate;
 		this.onFocus = this.onFocus.bind(this);
 		this.focusNextField = this.focusNextField.bind(this);
+		this.updateParentState = this.updateParentState.bind(this);
+	}
+
+	updateParentState(obj){
+		this.setState(obj);
 	}
 
 	focusNextField(nextField) {
@@ -83,7 +89,7 @@ export default class Login extends Component {
 			postJson.append("username", that.state.inputMobileNumber);
 			postJson.append("password", that.state.inputPassword);
 			var subUrl = "getLoginFromApps";
-			//that.props.updateLoading(true);
+			await this.setState({isLoading : true});
 			var response = await doPost(subUrl, postJson);
 			if(response != null){
 
@@ -105,7 +111,7 @@ export default class Login extends Component {
 
     					await AsyncStorage.setItem('userToken', that.state.inputMobileNumber);
 					//that.props.updateLoading(false);
-
+					await that.setState({isLoading : false});
 					alertType = 'success';
 					title = "Success!";
 					MessageBarManager.showAlert({
@@ -123,6 +129,7 @@ export default class Login extends Component {
 					alertType = 'error';
 					title = "Error!";
 					message="Your Profile was not activated!";
+					await that.setState({isLoading : false});
 					MessageBarManager.showAlert({
 						title: title,
 						message: message,
@@ -134,6 +141,7 @@ export default class Login extends Component {
 					alertType = 'error';
 					title = "Error!";
 					message="Username/Password is incorrect";
+					await that.setState({isLoading : false});
 					MessageBarManager.showAlert({
 						title: title,
 						message: message,
@@ -214,6 +222,7 @@ export default class Login extends Component {
             <MKButton onPress={()=> this.getLogin()} style={{backgroundColor : '#59C2AF', borderColor: '#59C2AF', height:60}} textStyle={{color: '#FFF'}} activityIndicatorColor={'orange'} >
 				LOGIN
 			</MKButton>
+<MKSpinner visible={this.state.isLoading} updateParentState={this.updateParentState} textContent={"Please wait"} cancelable={true} textStyle={{color: '#FFF'}} />
 			<MessageBarAlert ref="alert" />
 		</View>
 		);

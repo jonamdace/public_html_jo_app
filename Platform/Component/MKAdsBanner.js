@@ -11,7 +11,7 @@ import {  AdMobBanner } from 'react-native-admob';
 export default class MKAdsBanner extends React.Component {
 	render() {
 		return (
-			<View>
+			<View style={{width : "100%"}}>
 				<AdMobBanner
 					adSize="fullBanner"
 					adUnitID="ca-app-pub-3670807734353712/2715920575"

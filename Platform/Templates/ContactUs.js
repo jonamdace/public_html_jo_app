@@ -247,8 +247,8 @@ export default class ContactUs extends Component {
                         </View>
 
                         <View style={{paddingTop: 30}}></View>
-                    </View>
 			<MKAdsBanner />
+                    </View>
                 </ScrollView>
                 {dynamicBtn}
                 <MessageBarAlert ref="alert" />
