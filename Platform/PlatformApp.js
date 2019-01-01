@@ -155,7 +155,7 @@ const AppInnerStack = createStackNavigator(
 	},
     }, 
     {
-        initialRouteName: 'ViewHistory',
+        initialRouteName: 'MyProfile',
 	navigationOptions: ({ navigation }) => ({
                 headerStyle: { backgroundColor: 'orange' },
                 headerTintColor: '#fff',

@@ -16,7 +16,7 @@ export default class MKAdsBanner extends React.Component {
 					adSize="fullBanner"
 					adUnitID="ca-app-pub-3670807734353712/2715920575"
 					testDevices={[AdMobBanner.simulatorId]}
-					onAdFailedToLoad={error => alert(error)}
+					onAdFailedToLoad={error => console.log(error)}
 				/>
 			</View>
 		);

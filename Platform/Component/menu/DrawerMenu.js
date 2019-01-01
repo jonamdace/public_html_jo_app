@@ -20,7 +20,8 @@ export default class DrawerMenu extends Component {
             username: null,
             lastlogin: null,
             name: null,
-            img: null
+            img: null,
+            userCode : ""
         }
     }
 
@@ -46,13 +47,14 @@ export default class DrawerMenu extends Component {
         AsyncStorage.setItem("lastlogin", "");
         AsyncStorage.setItem("name", "");
         AsyncStorage.setItem("img", "");
-        this.setStateOftheMenu(null, null, null, null);
+        this.setStateOftheMenu(null, null, null, null, null);
 	this.navigateToScreen("HomeScreen");
 	this.props.navigation.navigate("HomeScreen");
     }
 
-    setStateOftheMenu(username, lastlogin, name, img) {
+    setStateOftheMenu(username, lastlogin, name, img, userCode) {
         this.setState({
+            userCode: userCode,
             username: username,
             lastlogin: lastlogin,
             name: name,
@@ -66,7 +68,8 @@ export default class DrawerMenu extends Component {
         var lastlogin = await AsyncStorage.getItem("lastlogin");
         var name = await AsyncStorage.getItem("name");
         var img = await AsyncStorage.getItem("img");
-        this.setStateOftheMenu(username, lastlogin, name, img);
+        var userCode = await AsyncStorage.getItem("userCode");
+        this.setStateOftheMenu(username, lastlogin, name, img, userCode);
     }
 
     render() {
@@ -97,6 +100,13 @@ export default class DrawerMenu extends Component {
         ];
 
         var filePath = ConfigVariable.uploadedAdsFilePathEmpty;
+        var srcImg = null;
+        if(that.state.img != null){
+            filePath = ConfigVariable.uploadedUserProfileFilePath;
+            filePath = filePath + that.state.userCode + '/' + that.state.img;
+
+        }
+
         var imgContent = <Image source={{uri: filePath}} style={{width: 75, height: 75, resizeMode: "contain", alignSelf:'center'}} />
         var username = this.state.username;
         if (username != null) {
@@ -105,7 +115,7 @@ export default class DrawerMenu extends Component {
             var img = this.state.img;
 
             if(img != null){
-                imgContent = <Image source={{uri: filePath}} style={{width: 75, height: 75, resizeMode: "contain", alignSelf:'center'}} />            } else {
+                imgContent = <Image source={{uri: filePath}} style={{width: 100, height: 100, resizeMode: "stretch", alignSelf:'center'}} />            } else {
             }
 
             userDispContent.push(
@@ -160,7 +170,7 @@ export default class DrawerMenu extends Component {
             if(route === "Logout"){
                 objArray.push(
                     <View key={index}
-                          style={{ padding: 15, paddingTop: 15 }}>
+                          style={{ padding: 15, paddingTop: 15, paddingBottom: 30, }}>
                         <TouchableOpacity onPress={()=>that.onPressToLogout()}>
                             <View style={{flexDirection: 'row'}}>
                                 <Icon name={icon} size={20} color={"#59C2AF"} style={{ paddingLeft :15, paddingRight :5, paddingTop: 2}}/>

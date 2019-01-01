@@ -9,7 +9,7 @@ import { doPost } from "../Component/MKActions";
 import MKAdsBanner from "../Component/MKAdsBanner";
 var MessageBarAlert = require('react-native-message-bar').MessageBar;
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
-
+import MKSpinner from "../Component/MKSpinner";
 
 export default class ChangePassword extends Component {
 
@@ -19,6 +19,7 @@ export default class ChangePassword extends Component {
         this.state = {
             height : height,
             width : width,
+	    isLoading : false,
             errorsJson:{
                 inputPassword : null,
                 inputRePassword : null
@@ -29,7 +30,12 @@ export default class ChangePassword extends Component {
         this.navigate=this.props.navigateTo;
         this.onFocus = this.onFocus.bind(this);
         this.focusNextField = this.focusNextField.bind(this);
+	this.updateParentState = this.updateParentState.bind(this);
     }
+
+	updateParentState(obj){
+		this.setState(obj);
+	}
 
     focusNextField(nextField) {
         this.refs[nextField].focus();
@@ -74,7 +80,7 @@ export default class ChangePassword extends Component {
         });
         await that.updateMyState(errorsJson, 'errorsJson');
         if(isValid == 1){
-           // that.props.updateLoading(true);
+		await this.setState({isLoading : true});
 
             var userid = await AsyncStorage.getItem('userid');
             var postJson = new FormData();
@@ -109,7 +115,7 @@ export default class ChangePassword extends Component {
                 });
 
             }
-
+		await this.setState({isLoading : false});
             //that.props.updateLoading(false);
         }
     }
@@ -176,6 +182,7 @@ export default class ChangePassword extends Component {
                         <View style={{paddingTop: 30}}></View>
 			<MKAdsBanner />
                     </View>
+<MKSpinner visible={this.state.isLoading} updateParentState={this.updateParentState} textContent={"Please wait"} cancelable={true} textStyle={{color: '#FFF'}} />
                 </ScrollView>
                 <MKButton onPress={()=> this.changeMyPassword()} style={{backgroundColor : '#59C2AF', borderColor: '#59C2AF', height:60}} textStyle={{color: '#FFF'}} activityIndicatorColor={'orange'} >
                     Update

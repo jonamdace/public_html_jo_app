@@ -11,6 +11,7 @@ import MKSpinner from "../Component/MKSpinner";
 var MessageBarAlert = require('react-native-message-bar').MessageBar;
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 var ImagePicker = require('react-native-image-picker');
+import ConfigVariable from '../Component/config/ConfigVariable';
 
 export default class EditMyProfile extends Component {
 
@@ -28,12 +29,14 @@ export default class EditMyProfile extends Component {
 		        emailId : null,
 		        name : null
 		},
+                userCode: '',
 		address : '',
 		districtId : '',
 		stateId : '',
 		emailId : '',
 		name : '',
 		userid : '',
+		userImage : '',
 		userImagePath : '',
 		avatarSource : null,
 		avatarSourceUri : null,
@@ -44,10 +47,12 @@ export default class EditMyProfile extends Component {
 
         };
 	this.navigate=this.props.navigation.navigate;
+	this.updateParentState = this.updateParentState.bind(this);
     }
 
     async componentDidMount() {
-        var userid = this.props.navigation.state.params['userid'];
+        //var userid = this.props.navigation.state.params['userid'];
+        var userid = await AsyncStorage.getItem('userid');
         this.setState({
             userid : userid
         });
@@ -61,7 +66,9 @@ export default class EditMyProfile extends Component {
         var response = await doPost(subUrl, postJson);
         if(response != null && response != "" && response != undefined){
             this.setState({
+                userCode: response.userCode,
                 address : response.address,
+                userImage: response.img,
                 districtId : response.districtId,
                 stateId : response.stateId,
                 emailId : response.email,
@@ -91,23 +98,26 @@ export default class EditMyProfile extends Component {
 
     async getCityList(stateId){
 
-        this.setState({
-            districtId : ""
-        });
-	await this.setState({isLoading : true});
-        var postJson = new FormData();
-        postJson.append("countryId", 1);
-        postJson.append("divId", "cityIdDiv");
-        postJson.append("actionId", stateId);
-        postJson.append("rf", "json");
-        var subUrl="getStates";
-        var response = await doPost(subUrl, postJson);
-        if(response != null && response != "" && response != undefined){
-            this.setState({
-                pickerCityList : response
-            });
-        }
-	await this.setState({isLoading : false});
+	if(stateId!="" && stateId!= null){
+		await this.setState({
+		    stateId : stateId
+		});
+
+		await this.setState({isLoading : true});
+		var postJson = new FormData();
+		postJson.append("countryId", 1);
+		postJson.append("divId", "cityIdDiv");
+		postJson.append("actionId", stateId);
+		postJson.append("rf", "json");
+		var subUrl="getStates";
+		var response = await doPost(subUrl, postJson);
+		if(response != null && response != "" && response != undefined){
+		    this.setState({
+		        pickerCityList : response
+		    });
+		}
+		await this.setState({isLoading : false});
+	}
     }
 
     componentWillUnmount() {
@@ -139,9 +149,9 @@ export default class EditMyProfile extends Component {
         var errorsJson = that.state.errorsJson;
         var emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
         Object.keys(errorsJson).forEach(function(key) {
-            var stateArrayValue = stateArray[key];
+            var stateArrayValue = that.state[key];
             if(stateArrayValue == null || stateArrayValue==""){
-                errorsJson[key] = "This field is required";
+                errorsJson[key] = "This field is required" + key + "--" + that.state.stateId;
                 isValid = 0;
             } else if( key == 'emailId' && emailReg.test(stateArrayValue) === false){
                 errorsJson[key] = "Invalid Email Address";
@@ -167,14 +177,16 @@ export default class EditMyProfile extends Component {
             postJson.append("districtId", that.state.districtId);
             postJson.append("address", that.state.address);
             postJson.append("userid", that.state.userid);
-            postJson.append('userFile', {
+	if(this.state.avatarSourceUri != null)            
+	    postJson.append('userFile', {
                 uri: this.state.avatarSourceUri,
                 type: this.state.avatarSourceFileType, // or photo.type
                 name: this.state.avatarSourceName
             })
             postJson.append("rf", "json");
             var subUrl="updateMyProfile";
-            doPost(subUrl, postJson);
+            var res = await doPost(subUrl, postJson);
+		//alert(JSON.stringify(res));
 		var alertType = "";
 		var title = "";
 		    alertType = 'success';
@@ -189,6 +201,10 @@ export default class EditMyProfile extends Component {
         }
 	await this.setState({isLoading : false});
     }
+
+	updateParentState(obj){
+		this.setState(obj);
+	}
 
     onFocus() {
         let errorsJson = this.state.errorsJson;
@@ -311,6 +327,15 @@ export default class EditMyProfile extends Component {
             );
         });
 
+        var filePath = ConfigVariable.uploadedUserProfileFilePath;
+        var userImage = this.state.userImage;
+	var srcImg = null;
+        if (userImage != "" && userImage != null) {
+            srcImg = {uri: filePath + this.state.userCode + '/' + userImage}
+        }
+
+	if(this.state.avatarSource != null)
+		srcImg = this.state.avatarSource;
 
         return (
             <View style={[{height : this.state.height, flex: 1, width : layoutWidth,  backgroundColor:'#FFF'}]} onLayout={()=> this.updateLayout()}>               
@@ -353,7 +378,7 @@ export default class EditMyProfile extends Component {
                             onValueChange={
                             (stateId, itemIndex) =>
                                 {
-                                    that.updateMyState(stateId, 'stateId');
+                                    //that.updateMyState(stateId, 'stateId');
                                     that.getCityList(stateId);
                                 }
                                 }>
@@ -378,11 +403,11 @@ export default class EditMyProfile extends Component {
                                 </View>
                             </TouchableOpacity>
                             {
-                                this.state.avatarSource != null ?
+                                srcImg != null ?
                                     <View
                                         style={{ width: this.state.width - 190, height : 120, margin:5, borderRadius : 10, borderWidth: 1, borderColor: '#59C2AF'}}>
                                         <View>
-                                            <Image source={this.state.avatarSource }
+                                            <Image source={ srcImg }
                                                    style={{width : this.state.width - 190, height : 120, borderRadius : 10}}/>
                                             <Icon name='times-circle' color='red' size={30}
                                                   style={{position : "absolute", top: 5, right : 5}}

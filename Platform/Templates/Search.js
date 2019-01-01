@@ -35,6 +35,7 @@ export default class Search extends Component {
             searchResultJson: {},
             page: "0",
             leftRecord: 0,
+		searchData : [],
             previousPage: -1,
             bookmarkArray : [],
             nextPage: "",
@@ -130,7 +131,10 @@ export default class Search extends Component {
                     that.updateMyState(nextPage, 'page');
                 that.updateMyState(previousPage, 'previousPage');
                 that.updateMyState(leftRecord, 'leftRecord');
-                that.updateMyState(bookmarkArray, 'bookmarkArray');
+
+		var searchDataExist = this.state.searchData.concat(searchData)
+                that.updateMyState(searchDataExist, 'searchData');
+
                 that.updateMyState(nextPage, 'nextPage');
                 that.updateMyState(that.state.ds.cloneWithRows(searchData), 'listItems');
             }
@@ -161,7 +165,7 @@ export default class Search extends Component {
         var previousBtn = null;
         if (this.state.leftRecord > 0) {
             nextBtn = <TouchableOpacity onPress={()=>this.onNext()}><Text
-                style={{textAlign : 'left'}}>Next</Text></TouchableOpacity>;
+                style={{textAlign : 'center'}}>Load More</Text></TouchableOpacity>;
         }
         if (this.state.previousPage >= 0) {
             previousBtn =
@@ -175,9 +179,8 @@ export default class Search extends Component {
                     <ListView style={{paddingBottom:15}} dataSource={this.state.listItems}
                               renderRow={(item) => this.constructTemplate(item)}
                               enableEmptySections={true}/>
-                    <View style={{flexDirection:"row", width : layoutWidth, paddingBottom : 20}}>
-                        <View style={ {width : layoutWidth/2}}>{ previousBtn }</View>
-                        <View style={ {width : layoutWidth/2}}>{ nextBtn }</View>
+                    <View style={{flexDirection:"row", width : layoutWidth, paddingBottom : 20, alignItems : "center"}}>
+                        { nextBtn }
                     </View>
 			<MKAdsBanner />
                 </ScrollView>
