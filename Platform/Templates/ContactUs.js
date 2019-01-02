@@ -8,6 +8,8 @@ import MKTextInput from "../Component/MKTextInput";
 import { doPost } from "../Component/MKActions";
 import PickerModal from 'react-native-picker-modal';
 import MKAdsBanner from "../Component/MKAdsBanner";
+import MKSpinner from "../Component/MKSpinner";
+
 var MessageBarAlert = require('react-native-message-bar').MessageBar;
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 
@@ -27,6 +29,7 @@ export default class ContactUs extends Component {
                 name : null
             },
             description : '',
+            isLoading : false,
             categoryId : '',
             mobileNumber : '',
             emailId : '',
@@ -34,6 +37,11 @@ export default class ContactUs extends Component {
             categoryList : []
         };
         this.navigate=this.props.navigateTo;
+        this.updateParentState = this.updateParentState.bind(this);
+    }
+
+    updateParentState(obj){
+        this.setState(obj);
     }
 
 
@@ -81,6 +89,7 @@ export default class ContactUs extends Component {
         var stateArray = that.state;
         var errorsJson = that.state.errorsJson;
         var emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+
         Object.keys(errorsJson).forEach(function(key) {
             var stateArrayValue = stateArray[key];
             if(stateArrayValue == null || stateArrayValue==""){
@@ -99,9 +108,12 @@ export default class ContactUs extends Component {
                 errorsJson[key] = null;
             }
         });
+
         await that.updateMyState(errorsJson, 'errorsJson');
         if(isValid == 1){
-            //that.props.updateLoading(true);
+
+
+            await this.setState({isLoading : true});
 
             var postJson = new FormData();
             postJson.append("name", that.state.name);
@@ -131,7 +143,7 @@ export default class ContactUs extends Component {
                     position: 'bottom',
                 });
             }
-            //that.props.updateLoading(false);
+            await this.setState({isLoading : false});
         }
     }
 
@@ -186,7 +198,9 @@ export default class ContactUs extends Component {
 
 
         var pickerItem = [];
-
+        pickerItem.push(
+            <Picker.Item label={"Select Category"} value={""} key={"Select"} />
+        );
         var categoryList = this.state.categoryList;
         Object.keys(categoryList).forEach(function(index){
             var categoryId = categoryList[index].categoryId;
@@ -229,7 +243,6 @@ export default class ContactUs extends Component {
                                      onFocus={()=>this.onFocus()}
                             />
                         { inputMobileNumberError }
-
                         <MKTextInput label={'Description'} highlightColor={inputHighlightColor}
                                      onChangeText={(description) => this.updateMyState(description, 'description')}
                                      value = {this.state.description}
@@ -237,8 +250,10 @@ export default class ContactUs extends Component {
                                      returnKeyType={'done'} ref="description"
                             />
                         { inputDescriptionError }
-                        <View style={{paddingTop : 25}}>
+
+                        <View style={{paddingTop : 25, borderBottomWidth : 1, borderBottomColor : "#E0E0E0"}}>
                             <PickerModal
+                                style={{borderBottomWidth : 1, borderBottomColor : "red"}}
                                 selectedValue={this.state.categoryId}
                                 onValueChange={(itemValue, itemIndex) => this.updateMyState(itemValue, 'categoryId')}>
                                 {pickerItem}
@@ -249,6 +264,7 @@ export default class ContactUs extends Component {
                         <View style={{paddingTop: 30}}></View>
 			<MKAdsBanner />
                     </View>
+                    <MKSpinner visible={this.state.isLoading} updateParentState={this.updateParentState} textContent={"Please wait"} cancelable={true} textStyle={{color: '#FFF'}} />
                 </ScrollView>
                 {dynamicBtn}
                 <MessageBarAlert ref="alert" />
