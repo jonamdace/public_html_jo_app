@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-var serverUri = "http://192.168.43.42/public_html1/";
-//var serverUri = "https://www.1stepshop.in/";
+//var serverUri = "http://192.168.43.42/public_html1/";
+var serverUri = "https://www.1stepshop.in/";
 
 export async function doPost(subUrl, postJsonData){
 	var url = serverUri + subUrl;

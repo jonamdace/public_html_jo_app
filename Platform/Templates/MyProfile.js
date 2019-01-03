@@ -36,10 +36,16 @@ export default class MyProfile extends Component {
             userCode: '',
             userImage: '',
         };
-	this.navigate=this.props.navigation.navigate;
+
+        this.navigate=this.props.navigation.navigate;
+        this.updateParentState = this.updateParentState.bind(this);
+    }
+    updateParentState(obj){
+        this.setState(obj);
     }
 
-	componentWillUnmount() {
+
+    componentWillUnmount() {
 		MessageBarManager.unregisterMessageBar();
 	}
 

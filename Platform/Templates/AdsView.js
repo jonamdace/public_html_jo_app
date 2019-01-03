@@ -12,6 +12,7 @@ import {
 	ImageBackground,
 	ListView
 	} from "react-native";
+import MKSpinner from "../Component/MKSpinner";
 
 import colors from '../Component/config/colors';
 import ConfigVariable from '../Component/config/ConfigVariable';
@@ -40,6 +41,12 @@ export default class AdsView extends Component {
 			ds : ds
 		};
 		this.navigate=this.props.navigation.navigate;
+		this.updateParentState = this.updateParentState.bind(this);
+
+	}
+
+	updateParentState(obj){
+		this.setState(obj);
 	}
 
 	updateLayout(){
@@ -48,9 +55,8 @@ export default class AdsView extends Component {
 	}
 
 
-
-	async componentDidMount() {
-	        var paramsData = this.props.navigation.state.params;
+	async getAdsDetails(paramsData){
+		await this.setState({isLoading : true});
 		var singleAdsJson = null;
 		var dynamicAdsDetails = null;
 		var adsgalleryDetails = null;
@@ -73,7 +79,12 @@ export default class AdsView extends Component {
 		}
 
 		this.setState({adsViewcount : adsViewcount, singleAdsJson : singleAdsJson, adsgalleryDetails : adsgalleryDetails, dynamicAdsDetails : dynamicAdsDetails, similaradsArray : similaradsArray});
+		await this.setState({isLoading : false});
+	}
 
+	async componentDidMount() {
+		var paramsData = this.props.navigation.state.params;
+		this.getAdsDetails(paramsData)
 		//alert(JSON.stringify(this.state.adsgalleryDetails));
 	}
 
@@ -99,8 +110,8 @@ export default class AdsView extends Component {
 			filePath = ConfigVariable.uploadedAdsFilePath + '/' + item['userCode'] + '/' + item['adsCode'] + '/' + fileName;
 
 		return (
-			<TouchableOpacity onPress={()=> this.onPressRedirectToPassData('AdsView', item)}>
-				<View style={{ width: 100, height: 100, borderWidth : 1, borderColor :'#59C2AF'}}>
+			<TouchableOpacity onPress={()=> this.getAdsDetails(item)}>
+				<View style={{ width: 100, height: 100, borderWidth : 1, borderColor :'#59C2AF', marginRight : 10}}>
 				<ImageBackground source={{uri: filePath }}  resizeMode={'stretch'} style={{width: '100%', height: '100%'}} >
 					<View style={{flexDirection: "row"}}>
 							<Text style={{textAlign : 'left', fontSize : 10, width: 48,  color :'#FFF', backgroundColor: 'orange'}}>{item['adsCode']}</Text>
@@ -330,8 +341,10 @@ export default class AdsView extends Component {
 
 		</View>
 		{
-			descContent		
+			descContent
 		}
+		<MKSpinner visible={this.state.isLoading} updateParentState={this.updateParentState} textContent={"Please wait"} cancelable={true} textStyle={{color: '#FFF'}} />
+
 	</ScrollView>
 </View>
 		);
