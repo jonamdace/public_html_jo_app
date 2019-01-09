@@ -11,8 +11,9 @@ import {
     ScrollView,
     Dimensions,
     TouchableOpacity,
+    TouchableHighlight,
     Image,FlatList,
-    ListView,
+    ListView,Modal,
     AsyncStorage
 } from "react-native";
 
@@ -23,7 +24,23 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class Search extends Component {
 
-    static navigationOptions = ({ navigation }) => { headerRight : <Icon name="md-funnel" size={35} color={'#fff'} onPress={()=> navigation.toggleDrawer()} style={{paddingRight : 20}}/> };
+    static navigationOptions = ({navigation}) => {
+        let handleOpenModal = null;
+        if (navigation.state.params && navigation.state.params.hasOwnProperty('handleOpenModal')) {
+            handleOpenModal = navigation.state.params.handleOpenModal;
+        } else {
+            handleOpenModal = () => {};
+        }
+
+        return {
+            headerRight: <TouchableOpacity
+                style={{marginRight: 16}}
+                onPress={handleOpenModal}>
+               <Text>   <Icon name="md-funnel" size={35} color={'#fff'} style={{paddingRight : 20}} /></Text>
+            </TouchableOpacity>
+        }
+    }
+
 
     constructor(props:Object) {
         var {height, width} = Dimensions.get('window');
@@ -31,6 +48,7 @@ export default class Search extends Component {
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
             isLoading: true,
+            modalVisible: false,
             height: height,
             width: width,
             searchText: "",
@@ -49,6 +67,7 @@ export default class Search extends Component {
 	this.navigate=this.props.navigation.navigate;
     }
 
+
     getValueFromArray(arraName, arrayIndex) {
         if (arraName[arrayIndex] != "" && arraName[arrayIndex] != null && arraName[arrayIndex] != "null" && arraName[arrayIndex] != undefined) {
             return arraName[arrayIndex];
@@ -56,7 +75,13 @@ export default class Search extends Component {
         return "";
     }
 
+    handleOpenModal(){
+        this.setState({modalVisible: !this.state.modalVisible});
+    }
+
     async componentDidMount() {
+        this.props.navigation.setParams({ handleOpenModal: ()=>this.handleOpenModal() });
+
         //var paramsArray = this.props.value;
 	var paramsArray = this.props.navigation.state.params;
         var searchUserId = await AsyncStorage.getItem('userid');
@@ -216,11 +241,34 @@ export default class Search extends Component {
                             keyExtractor={this._keyExtractor}
                             renderItem={(item) => this.constructTemplate(item['item'])}
                             />
-                        <View                               style={{flex : 1, width : layoutWidth, paddingBottom : 20, alignItems : "center"}}>
+                        <View style={{flex : 1, width : layoutWidth, paddingBottom : 20, alignItems : "center"}}>
                             { nextBtn }
                         </View>
+
                         <MKAdsBanner />
                     </ScrollView>
+                    <Modal
+                        animationType="slide"
+                        transparent={false}
+                        visible={this.state.modalVisible}
+                        onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+                        <View style={{marginTop: 22}}>
+                            <View>
+                                <Text>Search Processing...</Text>
+
+                                <TouchableHighlight
+                                    onPress={() => {
+                  this.setState({modalVisible : !this.state.modalVisible});
+                }}>
+                                    <Text>close</Text>
+                                </TouchableHighlight>
+                            </View>
+                        </View>
+                    </Modal>
+
+
 
                 </View>
             );
