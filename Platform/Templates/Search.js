@@ -10,7 +10,7 @@ import {
     ScrollView,
     Dimensions,
     TouchableOpacity,
-    Image,
+    Image,FlatList,
     ListView,
     AsyncStorage
 } from "react-native";
@@ -157,6 +157,8 @@ export default class Search extends Component {
                                  postJson={item} fromPage="adsList" bookmarkAdd={bookmarkAdd}/>;
     }
 
+	_keyExtractor = (item, index) => item.adsId;
+
     render() {
 
         var inputWidth = this.state.width - 30;
@@ -164,8 +166,12 @@ export default class Search extends Component {
         var nextBtn = null;
         var previousBtn = null;
         if (this.state.leftRecord > 0) {
-            nextBtn = <TouchableOpacity onPress={()=>this.onNext()}><Text
-                style={{textAlign : 'center'}}>Load More</Text></TouchableOpacity>;
+            nextBtn = <TouchableOpacity onPress={()=>this.onNext()} style={{height: 30}}>
+                <Text
+                    style={[ {marginTop: 15, color:'#FFF',  fontWeight : 'bold'}]}>
+                    Load More »
+                </Text>
+            </TouchableOpacity>;
         }
         if (this.state.previousPage >= 0) {
             previousBtn =
@@ -175,15 +181,19 @@ export default class Search extends Component {
         return (
             <View style={[{height : this.state.height, flex: 1, width : layoutWidth, backgroundColor:'#59C2AF'}]}
                   onLayout={()=> this.updateLayout()}>
-                <ScrollView >
-                    <ListView style={{paddingBottom:15}} dataSource={this.state.listItems}
-                              renderRow={(item) => this.constructTemplate(item)}
-                              enableEmptySections={true}/>
-                    <View style={{flexDirection:"row", width : layoutWidth, paddingBottom : 20, alignItems : "center"}}>
+                <ScrollView>
+                <FlatList
+        data={this.state.searchData}
+        extraData={this.state}
+        keyExtractor={this._keyExtractor}
+        renderItem={(item) => this.constructTemplate(item['item'])}
+      />
+                    <View                               style={{flex : 1, width : layoutWidth, paddingBottom : 20, alignItems : "center"}}>
                         { nextBtn }
                     </View>
 			<MKAdsBanner />
                 </ScrollView>
+
             </View>
         );
     }
