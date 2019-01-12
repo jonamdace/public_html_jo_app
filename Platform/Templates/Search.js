@@ -252,8 +252,8 @@ export default class Search extends Component {
                         transparent={false}
                         visible={this.state.modalVisible}
                         onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-          }}>
+                            alert('Modal has been closed.');
+                        }}>
                         <View style={{marginTop: 22}}>
                             <View>
                                 <Text>Search Processing...</Text>

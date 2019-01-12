@@ -77,6 +77,8 @@ export default class AdsView extends Component {
 
 		this.setState({adsViewcount : adsViewcount, singleAdsJson : singleAdsJson, adsgalleryDetails : adsgalleryDetails, dynamicAdsDetails : dynamicAdsDetails, similaradsArray : similaradsArray});
 		await this.setState({isLoading : false});
+
+		this.refs.scrollView.scrollTo({x : 0, y : 0, animated : true});
 	}
 
 	async componentDidMount() {
@@ -320,7 +322,7 @@ export default class AdsView extends Component {
     		return ( 
 <View style={[{height : this.state.height, flex: 1, width : deviceWidth, backgroundColor:'#FFF'}]}
 	onLayout={()=> this.updateLayout()} >
-	<ScrollView >
+	<ScrollView ref="scrollView" >
 		<View style={[CommonStyle.wrapper]} >
 <TouchableOpacity style={[CommonStyle.button, {top: 5, left: 0, position:'absolute', width:60, alignItems:'center'}]} onPress={()=>this.onPressRedirectToGoBack()} >
 <Icon name='arrow-left' color='#fff' size={18} style={{paddingTop:5}}/>
