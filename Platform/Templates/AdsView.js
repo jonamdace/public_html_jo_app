@@ -10,7 +10,7 @@ import {
 	ScrollView,
 	Image,
 	ImageBackground,
-	ListView
+	FlatList
 	} from "react-native";
 import MKSpinner from "../Component/MKSpinner";
 
@@ -25,8 +25,6 @@ var {height, width} = Dimensions.get('window');
 export default class AdsView extends Component {
 	static navigationOptions = { header: null };
 	constructor(props: Object) {
-		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
 		var {height, width} = Dimensions.get('window');
 	    	super(props);
 		this.state = {
@@ -37,8 +35,7 @@ export default class AdsView extends Component {
 			similaradsArray : {},
 			dynamicAdsDetails : {},
 			adsgalleryDetails:{},
-			adsViewcount : "0",
-			ds : ds
+			adsViewcount : "0"
 		};
 		this.navigate=this.props.navigation.navigate;
 		this.updateParentState = this.updateParentState.bind(this);
@@ -122,6 +119,8 @@ export default class AdsView extends Component {
 			</TouchableOpacity>
 		);
 	}
+
+	_keyExtractor = (item, index) => item.adsCode;
 
 	render() { 
 		var deviceWidth = this.state.width;
@@ -273,19 +272,17 @@ export default class AdsView extends Component {
 							Similar Ads
 						</Text>
 					</View>
-					<ListView
+					<FlatList
 						horizontal={true}
+						showsHorizontalScrollIndicator={false}
 						pageSize = {2}
 						style={{flex:1, margin: 10}}
 						enableEmptySections={true}
 						removeClippedSubviews={true}
-						dataSource=	{
-				this.state.ds.cloneWithRows(
-					this.state.similaradsArray
-					//[{adsCode: 'rested'}, {adsCode: 'rested123'}, {adsCode: 'rested123'}, {adsCode: 'rested123'}, {adsCode: 'rested123'}, {adsCode: 'rested123'}, {adsCode: 'rested123'}]
-				)
-				}
-						renderRow={(data) => this.renderGridItem(data)}
+						data={this.state.similaradsArray}
+						renderItem={({ item }) => this.renderGridItem(item)}
+						//renderRow={(data) => this.renderGridItem(data)}
+						keyExtractor={this._keyExtractor}
 						/>
 				</View> : null
 			}
