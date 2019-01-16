@@ -24,7 +24,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class Search extends Component {
 
-    static navigationOptions = ({navigation}) => {
+   /* static navigationOptions = ({navigation}) => {
         let handleOpenModal = null;
         if (navigation.state.params && navigation.state.params.hasOwnProperty('handleOpenModal')) {
             handleOpenModal = navigation.state.params.handleOpenModal;
@@ -35,11 +35,11 @@ export default class Search extends Component {
         return {
             headerRight: <TouchableOpacity
                 style={{marginRight: 16}}
-                onPress={handleOpenModal}>
+                onPress={()=>navigation.navigate("AdsFilters")}>
                <Text>   <Icon name="md-funnel" size={35} color={'#fff'} style={{paddingRight : 20}} /></Text>
             </TouchableOpacity>
         }
-    }
+    }*/
 
 
     constructor(props:Object) {
@@ -247,29 +247,6 @@ export default class Search extends Component {
 
                         <MKAdsBanner />
                     </ScrollView>
-                    <Modal
-                        animationType="slide"
-                        transparent={false}
-                        visible={this.state.modalVisible}
-                        onRequestClose={() => {
-                            alert('Modal has been closed.');
-                        }}>
-                        <View style={{marginTop: 22}}>
-                            <View>
-                                <Text>Search Processing...</Text>
-
-                                <TouchableHighlight
-                                    onPress={() => {
-                  this.setState({modalVisible : !this.state.modalVisible});
-                }}>
-                                    <Text>close</Text>
-                                </TouchableHighlight>
-                            </View>
-                        </View>
-                    </Modal>
-
-
-
                 </View>
             );
         }

@@ -35,6 +35,7 @@ import Bookmarked from "./Templates/Bookmarked";
 import ChangePassword from "./Templates/ChangePassword";
 import EditMyProfile from "./Templates/EditMyProfile";
 import AdsFilters from "./Templates/AdsFilters";
+import AdsSubFilters from "./Templates/AdsSubFilters";
 import DrawerMenu from "./Component/menu/DrawerMenu";
 
 
@@ -133,6 +134,11 @@ const AppInnerStack = createStackNavigator(
 			title: 'Filters',
 		    })
 	},
+		AdsSubFilters: {
+		screen: AdsSubFilters,
+			headerLeft: null
+
+		},
         ChangePassword: {
 		screen: ChangePassword,
 		navigationOptions: ({ navigation }) => ({
@@ -162,7 +168,8 @@ const AppInnerStack = createStackNavigator(
 	},
     }, 
     {
-		//initialRouteName: 'AdsFilters',
+		//initialRouteName: 'AdsSubFilters',
+		//initialRouteName: 'Search',
 		initialRouteName: 'MyProfile',
 	navigationOptions: ({ navigation }) => ({
                 headerStyle: { backgroundColor: 'orange' },
