@@ -64,7 +64,7 @@ export default class AdsView extends Component {
 			var adsId = paramsData['adsId'];
 			var postJson = new FormData();
 			postJson.append("rf", "json");
-			var subUrl = "singleItem/"+adsId;
+			var subUrl = "singleItem/test/"+adsId;
 			var response = await doPost(subUrl, postJson);
 			if(response != null){
 				singleAdsJson = response['adsDetails']
