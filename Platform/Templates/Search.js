@@ -58,10 +58,11 @@ export default class Search extends Component {
             searchResultJson: {},
             page: "0",
             leftRecord: 0,
-		searchData : [],
+		    searchData : [],
             previousPage: -1,
             bookmarkArray : [],
             nextPage: "",
+            loggedInUserId : "",
             searchUserId : ""
         };
 	this.navigate=this.props.navigation.navigate;
@@ -86,7 +87,9 @@ export default class Search extends Component {
 	var paramsArray = this.props.navigation.state.params;
         var searchUserId = await AsyncStorage.getItem('userid');
 
-		
+		this.setState({
+            loggedInUserId : searchUserId
+        })
         if (paramsArray != null) {
             var searchText = this.getValueFromArray(paramsArray, 'searchText');
             var categoryId = this.getValueFromArray(paramsArray, 'categoryId');
@@ -188,6 +191,7 @@ export default class Search extends Component {
                 bookmarkAdd = false;
             }
             return <SearchAdsContent imgWidth={this.state.width-50}
+                                     loggedInUserId={this.state.loggedInUserId}
                                      imgHeight={150}
                                      navigation={this.navigate}
                                      postJson={item} fromPage="adsList" bookmarkAdd={bookmarkAdd}/>;

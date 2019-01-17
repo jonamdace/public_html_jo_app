@@ -39,6 +39,7 @@ export default class Bookmarked extends Component {
             leftRecord: 0,
             previousPage: -1,
             nextPage: "",
+            loggedInUserId: "",
             searchUserId : ""
         };
 		this.navigate=this.props.navigation.navigate;
@@ -46,7 +47,7 @@ export default class Bookmarked extends Component {
 
     async componentDidMount() {
         var userid = await AsyncStorage.getItem('userid');
-        this.setState({searchUserId : userid});
+        this.setState({searchUserId : userid, loggedInUserId : userid});
         await this.dataLoading();
     }
 
@@ -154,6 +155,7 @@ export default class Bookmarked extends Component {
     constructTemplate(item) {
 	//return <Text style={{paddingTop : 100}}>{this.state.searchResultJson.length} {JSON.stringify(item)}</Text>;
         return <SearchAdsContent imgWidth={this.state.width-50}
+                                 loggedInUserId={this.state.loggedInUserId}
                                  imgHeight={150}
                                  navigation={this.navigate}
                                  postJson={item} fromPage="View My Bookmarked List" bookmarkAdd={true} dataLoading = {this.dataLoading}/>;

@@ -136,6 +136,11 @@ export default class HomeScreen extends Component {
 				</MKButton>
 
 				</View>
+
+				<View style={{flexDirection: 'row', paddingTop:40}}>
+					<Text onPress={()=> this.onPressRedirect('Dashboard')} style={{fontFamily : 'FerroRosso', color: '#FFFFFF', fontSize: 20}}>skip </Text>
+					<Icon name="ios-arrow-forward" style={{marginTop : -1}} color="#FFF" size={22} /><Icon name="ios-arrow-forward" color="#FFF" size={22} style={{marginTop : -1}}/>
+				</View>
 			</View>
 		);
 	}

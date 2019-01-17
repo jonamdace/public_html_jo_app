@@ -24,6 +24,7 @@ export default class Application extends Component {
         this.state = {
             height: height,
             width: width,
+            loggedInUserId : "",
             dataSource: null,
             isLoading: true,
             isLoadingMore: false,
@@ -125,7 +126,7 @@ export default class Application extends Component {
     async componentDidMount() {
         //Start getting the first batch of data from reddit
         var userid = await AsyncStorage.getItem('userid');
-        this.setState({searchUserId : userid});
+        this.setState({searchUserId : userid, loggedInUserId : userid});
 
         var postJson = new FormData();
         postJson.append("page", this.state.page);
@@ -171,9 +172,10 @@ export default class Application extends Component {
     constructTemplate(item) {
 	if(item.id != "ads"){
         	return <SearchAdsContent imgWidth={this.state.width-50}
-                                 imgHeight={150}
-                                 navigation={this.navigate}
-                                 postJson={item} fromPage="View All My Ads" />;
+                                    imgHeight={150}
+                                    loggedInUserId={this.state.loggedInUserId}
+                                    navigation={this.navigate}
+                                    postJson={item} fromPage="View All My Ads" />;
 	} else {
 		return <View style={{padding : 5}}><MKAdsBanner /></View>;
 	}

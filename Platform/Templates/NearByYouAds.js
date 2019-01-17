@@ -36,14 +36,15 @@ export default class NearByYouAds extends Component {
             leftRecord: 0,
             previousPage: -1,
             nextPage: "",
-            searchUserId : ""
+            searchUserId : "",
+            loggedInUserId : "",
         };
 		this.navigate=this.props.navigation.navigate;
     }
 
     async componentDidMount() {
         var userid = await AsyncStorage.getItem('userid');
-        this.setState({searchUserId : userid});
+        this.setState({searchUserId : userid, loggedInUserId : userid});
         await this.dataLoading();
     }
 
@@ -112,6 +113,7 @@ export default class NearByYouAds extends Component {
 
     constructTemplate(item) {
         return <SearchAdsContent imgWidth={this.state.width-50}
+                                 loggedInUserId={this.state.loggedInUserId}
                                  imgHeight={150}
                                  navigation={this.navigate}
                                  postJson={item} fromPage="View My Bookmarked List" dataLoading = {this.dataLoading}/>;

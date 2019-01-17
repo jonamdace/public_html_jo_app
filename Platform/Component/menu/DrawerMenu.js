@@ -42,18 +42,20 @@ export default class DrawerMenu extends Component {
     }
 
     async onPressToLogout(){
-	AsyncStorage.setItem("userToken", "");
+	    AsyncStorage.setItem("userToken", "");
+	    AsyncStorage.setItem("userid", "");
         AsyncStorage.setItem("username", "");
         AsyncStorage.setItem("lastlogin", "");
         AsyncStorage.setItem("name", "");
         AsyncStorage.setItem("img", "");
-        this.setStateOftheMenu(null, null, null, null, null);
+        this.setStateOftheMenu(null, null, null, null, null, null);
 	this.navigateToScreen("HomeScreen");
 	this.props.navigation.navigate("HomeScreen");
     }
 
-    setStateOftheMenu(username, lastlogin, name, img, userCode) {
+    setStateOftheMenu(username, lastlogin, name, img, userCode, userid) {
         this.setState({
+            userid: userid,
             userCode: userCode,
             username: username,
             lastlogin: lastlogin,

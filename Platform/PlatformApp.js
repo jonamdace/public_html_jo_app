@@ -43,9 +43,6 @@ import DrawerMenu from "./Component/menu/DrawerMenu";
 const AuthStack = createStackNavigator({
         HomeScreen: {
             screen: HomeScreen,
-            navigationOptions: ({ navigation }) => ({
-                title: 'HomeScreen',
-            })
         },
         Login: {
             screen: Login,
@@ -88,7 +85,7 @@ const AppInnerStack = createStackNavigator(
         Dashboard: { 
 		screen: Dashboard,
 		navigationOptions: ({ navigation }) => ({
-			title: 'Home',
+			title: 'All Categories',
 			headerLeft: <Icon name="ios-menu" size={35} color={'#fff'} onPress={()=>navigation.toggleDrawer()} style={{paddingLeft : 20}}/>
 		})
 	},
@@ -170,7 +167,7 @@ const AppInnerStack = createStackNavigator(
     {
 		//initialRouteName: 'AdsSubFilters',
 		//initialRouteName: 'Search',
-		initialRouteName: 'MyProfile',
+		initialRouteName: 'Dashboard',
 	navigationOptions: ({ navigation }) => ({
                 headerStyle: { backgroundColor: 'orange' },
                 headerTintColor: '#fff',
@@ -193,17 +190,17 @@ const AppStack = createDrawerNavigator(
 
 const SwitchNavigator = createSwitchNavigator(
   {
-    AuthLoading: AuthLoadingScreen,
+    //AuthLoading: AuthLoadingScreen,
     Auth: AuthStack,
     App: AppStack
   },
   {
-    initialRouteName: 'AuthLoading',
+    //initialRouteName: 'AuthLoading',
+    initialRouteName: 'Auth',
   }
 );
 
-type Props = {};
-export default class PlatformApp extends Component<Props> {
+export default class PlatformApp extends Component<{}> {
 
 	constructor(props) {
 		super(props);

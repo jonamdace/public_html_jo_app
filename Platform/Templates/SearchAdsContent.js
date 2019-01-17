@@ -92,13 +92,24 @@ export default class SearchAdsContent extends Component {
         if(this.props.fromPage != null && this.props.fromPage != "View All My Ads"){
 
             if(!this.state.bookmarkAdd){
-                dynamicContent =
-                    <TouchableOpacity onPress={()=> this.onPressToRemoveFromBookmark('add')}>
-                        <Text
-                            style={[ {textAlign:'left', color:'blue', paddingTop :10, paddingBottom:10}]}>
-                            Add to Bookmark
-                        </Text>
-                    </TouchableOpacity>;
+                if(this.props.loggedInUserId != "" && this.props.loggedInUserId != null){
+                    dynamicContent =
+                        <TouchableOpacity onPress={()=> this.onPressToRemoveFromBookmark('add')}>
+                            <Text
+                                style={[ {textAlign:'left', color:'blue', paddingTop :10, paddingBottom:10}]}>
+                                Add to Bookmark
+                            </Text>
+                        </TouchableOpacity>;
+
+                } else {
+                    dynamicContent =
+                        <TouchableOpacity onPress={()=> this.props.navigation("Login")}>
+                            <Text
+                                style={[ {textAlign:'left', color:'blue', paddingTop :10, paddingBottom:10}]}>
+                                Login to Add Bookmark
+                            </Text>
+                        </TouchableOpacity>;
+                }
             } else {
                 dynamicContent =
                     <TouchableOpacity onPress={()=> this.onPressToRemoveFromBookmark('remove')}>
