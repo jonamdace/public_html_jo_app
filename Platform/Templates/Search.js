@@ -24,7 +24,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class Search extends Component {
 
-   /* static navigationOptions = ({navigation}) => {
+    static navigationOptions = ({navigation}) => {
         let handleOpenModal = null;
         if (navigation.state.params && navigation.state.params.hasOwnProperty('handleOpenModal')) {
             handleOpenModal = navigation.state.params.handleOpenModal;
@@ -39,7 +39,7 @@ export default class Search extends Component {
                <Text>   <Icon name="md-funnel" size={35} color={'#fff'} style={{paddingRight : 20}} /></Text>
             </TouchableOpacity>
         }
-    }*/
+    }
 
 
     constructor(props:Object) {

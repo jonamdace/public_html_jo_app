@@ -166,8 +166,8 @@ const AppInnerStack = createStackNavigator(
     }, 
     {
 		//initialRouteName: 'AdsSubFilters',
-		//initialRouteName: 'Search',
-		initialRouteName: 'Dashboard',
+		initialRouteName: 'Search',
+		//initialRouteName: 'Dashboard',
 	navigationOptions: ({ navigation }) => ({
                 headerStyle: { backgroundColor: 'orange' },
                 headerTintColor: '#fff',
@@ -196,7 +196,7 @@ const SwitchNavigator = createSwitchNavigator(
   },
   {
     //initialRouteName: 'AuthLoading',
-    initialRouteName: 'Auth',
+    initialRouteName: 'App',
   }
 );
 

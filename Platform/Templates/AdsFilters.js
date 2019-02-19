@@ -37,6 +37,9 @@ export default class AdsFilters extends Component {
         var {height, width} = Dimensions.get('window');
         super(props);
         this.state = {
+            city : null,
+            categoryId : null,
+            subCategoryId : null,
             isLoading: true,
             modalVisible: false,
         }
@@ -50,6 +53,28 @@ export default class AdsFilters extends Component {
 
     onPressToDone() {
         this.setState({modalVisible: !this.state.modalVisible,});
+
+        var returnStateArray = this.refs.adsFilter.returnStateArray();
+        if(returnStateArray != null){
+            var selectedValue = returnStateArray.radioSelected;
+            var searchKey = returnStateArray.searchKey;
+            var searchName = returnStateArray.searchName;
+            if(searchKey == "categoryId"){
+                this.setState({
+                    categoryId : selectedValue
+                })
+            }
+            if(searchKey == "subCategoryId"){
+                this.setState({
+                    subCategoryId : selectedValue
+                })
+            }
+            if(searchKey == "city"){
+                this.setState({
+                    city : selectedValue
+                })
+            }
+        }
 
         alert("ref" + JSON.stringify(this.refs.adsFilter.returnStateArray()))
     }
@@ -65,6 +90,22 @@ export default class AdsFilters extends Component {
     render(){
         var {height, width} = Dimensions.get('window');
 
+        var dynamicContentRowJson = [
+            {
+                key : 1,
+                keyName : "city",
+                displayText : "Select your city to see local ads",
+                selectedText : "",
+                selectedId : "",
+            },
+            {
+                key : 2,
+                keyName : "categoryId",
+                displayText : "Browse Categories",
+                selectedText : "",
+                selectedId : "",
+            }
+        ]
         return(
             <View style={{ height : height, width : width, flex : 1}}>
                 <View  style={{ height : 100, justifyContent : "center", flex : 100}}>
@@ -79,9 +120,17 @@ export default class AdsFilters extends Component {
 
                         <TouchableOpacity
                             style={{ flex : 1, minHeight : 50, justifyContent : "center", padding : 15, borderBottomWidth : 0.5, borderColor : "#C0C0C0"}}
-                            onPress={()=>this.handleOpenModal("Categories")}>
+                            onPress={()=>this.handleOpenModal("categoryId")}>
                             <Text>
                                 Browse Categories
+                            </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={{ flex : 1, minHeight : 50, justifyContent : "center", padding : 15, borderBottomWidth : 0.5, borderColor : "#C0C0C0"}}
+                            onPress={()=>this.handleOpenModal("subCategoryId")}>
+                            <Text>
+                                Browse Sub Categories
                             </Text>
                         </TouchableOpacity>
 
@@ -124,7 +173,7 @@ export default class AdsFilters extends Component {
                                 Price Range
                             </Text>
                         </TouchableOpacity>
-                        
+
                     </ScrollView>
                 </View>
                 <View  style={{ backgroundColor : "#FFF", borderTopWidth : 1, borderColor : "#C0C0C0", height : 60, alignItems : "center", paddingHorizontal : 10, flexDirection : "row" }}>
@@ -149,7 +198,7 @@ export default class AdsFilters extends Component {
                             alert('Modal has been closed.');
                         }}>
                     <View style={{ height : height, width : width, flex : 1}}>
-                            <AdsSubFilters searchKey={this.state.searchKey} searchName={this.state.searchName} ref={"adsFilter"} onPressToDone={this.onPressToDone} onPressToClose={() => { this.setState({modalVisible : !this.state.modalVisible}); }} />
+                            <AdsSubFilters stateArray={this.state} searchKey={this.state.searchKey} searchName={this.state.searchName} ref={"adsFilter"} onPressToDone={this.onPressToDone} onPressToClose={() => { this.setState({modalVisible : !this.state.modalVisible}); }} />
                     </View>
                 </Modal>
 
