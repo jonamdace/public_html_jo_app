@@ -9,6 +9,11 @@ const deviceWidth = Dimensions.get('window').width;
 
 
 module.exports = StyleSheet.create({
+  selectedAdsFiltersText : {
+    color : "blue",
+    fontSize : 10,
+    paddingTop : 5
+  },
   	labelText: {
     		backgroundColor: 'rgba(0,0,0,0)',
     		color : '#2B8CB9',
@@ -19,12 +24,12 @@ module.exports = StyleSheet.create({
 		flexDirection: 'row',
 	},
 	adsViewHeader:{
- 		flexDirection : 'row', 
+ 		flexDirection : 'row',
 		backgroundColor: '#FFF',
 		minHeight:30,
-		justifyContent:'center', 
-		textAlign:'right', 
-		fontSize: 14, 
+		justifyContent:'center',
+		textAlign:'right',
+		fontSize: 14,
 		paddingTop:5,
 		paddingRight:10,
 		fontWeight:'bold',
@@ -32,8 +37,8 @@ module.exports = StyleSheet.create({
 		width: 100
 	},
 	adsViewText:{
- 		flexDirection : 'row', 
-		backgroundColor: '#FFF', 
+ 		flexDirection : 'row',
+		backgroundColor: '#FFF',
 		minHeight:30,
 		padding: 5,
 		color: colors.primary,

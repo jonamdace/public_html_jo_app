@@ -12,6 +12,9 @@ import {
     AsyncStorage
 } from "react-native";
 import MKButton from "../Component/MKButton";
+import MultiSlider from "../Component/slider/MultiSlider";
+import MKTextInput from "../Component/MKTextInput";
+
 
 import CheckBox from 'react-native-check-box';
 import { doPost } from "../Component/MKActions";
@@ -28,6 +31,7 @@ export default class AdsSubFilters extends Component {
     constructor(props:Object) {
         super(props);
         this.state = {
+            multiSliderValue: [1000, 10000],
             stateId : null,
             cityId : null,
             stateAndCityJson : null,
@@ -41,6 +45,14 @@ export default class AdsSubFilters extends Component {
             noOfItemSelected : 0,
             dataArray : { "owner" : false, "Business": false }
         }
+    }
+
+    multiSliderValuesChange(values){
+      this.setState({
+        multiSliderValue: values,
+        radioSelected : values[0] + "-"+values[1],
+        radioSelectedValue : "₹"+values[0] + "  To  ₹"+values[1]
+      });
     }
 
     radioClick(id, value) {
@@ -294,6 +306,46 @@ export default class AdsSubFilters extends Component {
               });
             });
         }
+
+if(this.props.searchKey == "searchText"){
+  var inputWidth = this.state.width - 30;
+  var layoutWidth = this.state.width;
+  var inputHeight = 38;
+  var inputFontSize = 16;
+  var inputHighlightColor = "#00BCD4";
+
+  listData = <View style={{padding : 20}}>
+  <MKTextInput label={'Search here...'} highlightColor={inputHighlightColor}
+               multiline={true}
+               onChangeText={(radioSelectedValue) => that.setState({radioSelectedValue : radioSelectedValue, radioSelected : radioSelectedValue})}
+               inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth,paddingBottom : -10}}
+               returnKeyType={'next'} ref="searchText"
+      />
+
+      </View>
+}
+
+        if(this.props.searchKey == "Price"){
+          listData = <View style={{ height : 100, alignItems : "center", paddingHorizontal : 25}}>
+          <MultiSlider
+            values={[
+              this.state.multiSliderValue[0],
+              this.state.multiSliderValue[1],
+            ]}
+            sliderLength={width - 50}
+            onValuesChange={(val)=>this.multiSliderValuesChange(val)}
+            min={0}
+            max={100000}
+            step={1}
+            snapped
+            />
+
+            <View style={{flexDirection : "row"}}>
+            <Text style={{textAlign : "right", fontWeight : "bold", color : "#000"}}>{"₹"+this.state.multiSliderValue[0] + "  To  ₹"+this.state.multiSliderValue[1]}</Text>
+            </View>
+          </View>;
+        }
+
 
 
         return(

@@ -13,22 +13,23 @@ import {
 import MKButton from "../Component/MKButton";
 import Icon from 'react-native-vector-icons/Ionicons';
 import AdsSubFilters from './AdsSubFilters';
+import CommonStyle from "../Styles/CommonStyle";
 
 export default class AdsFilters extends Component {
 
     static navigationOptions = ({navigation}) => {
-        let handleOpenModal = null;
-        if (navigation.state.params && navigation.state.params.hasOwnProperty('handleOpenModal')) {
-            handleOpenModal = navigation.state.params.handleOpenModal;
-        } else {
-            handleOpenModal = () => {};
-        }
 
+        let handleClear = null;
+        if (navigation.state.params && navigation.state.params.hasOwnProperty('handleClear')) {
+            handleClear = navigation.state.params.handleClear;
+        } else {
+            handleClear = () => {};
+        }
         return {
             headerRight: <TouchableOpacity
                 style={{marginRight: 16}}
-                onPress={()=>alert(1)}>
-                <Text style={{ paddingRight : 15, color : "#FFF", fontSize : 18}}>Clear</Text>
+                onPress={()=>handleClear()}>
+                <Text style={{ paddingRight : 15, color : "#FFF", fontSize : 18}}>Clear All</Text>
             </TouchableOpacity>
         }
     }
@@ -37,18 +38,20 @@ export default class AdsFilters extends Component {
         var {height, width} = Dimensions.get('window');
         super(props);
         this.state = {
+            amountRange  : null,
+            amountRangeDisplay  : null,
             city : null,
+            cityDisplay : null,
             categoryId : null,
+            categoryIdDisplay : null,
             subCategoryId : null,
+            subCategoryIdDisplay : null,
             isLoading: true,
             modalVisible: false,
         }
+        this.handleClear = this.handleClear.bind(this);
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.onPressToDone = this.onPressToDone.bind(this);
-    }
-
-    async componentDidMount() {
-
     }
 
     onPressToDone() {
@@ -56,22 +59,38 @@ export default class AdsFilters extends Component {
 
         var returnStateArray = this.refs.adsFilter.returnStateArray();
         if(returnStateArray != null){
-            var selectedValue = returnStateArray.radioSelected;
+            var selectedId = returnStateArray.radioSelected;
+            var selectedValue = returnStateArray.radioSelectedValue;
             var searchKey = returnStateArray.searchKey;
             var searchName = returnStateArray.searchName;
             if(searchKey == "categoryId"){
                 this.setState({
-                    categoryId : selectedValue
+                  categoryIdDisplay : selectedValue,
+                  categoryId : selectedId
                 })
             }
             if(searchKey == "subCategoryId"){
                 this.setState({
-                    subCategoryId : selectedValue
+                    subCategoryIdDisplay : selectedValue,
+                    subCategoryId : selectedId
                 })
             }
             if(searchKey == "city"){
                 this.setState({
-                    city : selectedValue
+                    cityDisplay : selectedValue,
+                    city : selectedId
+                })
+            }
+            if(searchKey == "Price"){
+                this.setState({
+                    amountRangeDisplay : selectedValue,
+                    amountRange : selectedId
+                })
+            }
+
+            if(searchKey == "searchText"){
+                this.setState({
+                    searchText : selectedValue,
                 })
             }
         }
@@ -79,12 +98,28 @@ export default class AdsFilters extends Component {
         alert("ref" + JSON.stringify(this.refs.adsFilter.returnStateArray()))
     }
 
-    handleOpenModal(keyName){
-        this.setState({modalVisible: !this.state.modalVisible, searchName : keyName, searchKey : keyName });
+    handleClear(){
+        this.setState({
+          searchText : null,
+            amountRange  : null,
+            amountRangeDisplay  : null,
+            city : null,
+            cityDisplay : null,
+            categoryId : null,
+            categoryIdDisplay : null,
+            subCategoryId : null,
+            subCategoryIdDisplay : null,
+            isLoading: true,
+            modalVisible: false,
+        })
+    }
+
+    handleOpenModal(searchName, keyName){
+        this.setState({modalVisible: !this.state.modalVisible, searchName : searchName, searchKey : keyName });
     }
 
     async componentDidMount() {
-
+        this.props.navigation.setParams({handleClear : this.handleClear});
     }
 
     render(){
@@ -112,47 +147,59 @@ export default class AdsFilters extends Component {
                     <ScrollView style={{backgroundColor : "#FFF"}}>
                         <TouchableOpacity
                             style={{ flex : 1, minHeight : 50, justifyContent : "center", padding : 15, borderBottomWidth : 0.5, borderColor : "#C0C0C0"}}
-                            onPress={()=>this.handleOpenModal("city")}>
+                            onPress={()=>this.handleOpenModal("City", "city")}>
                             <Text>
                                 Select your city to see local ads
                             </Text>
+                            {
+                              this.state.cityDisplay != null && this.state.cityDisplay != "" ? <Text style={CommonStyle.selectedAdsFiltersText} >
+                                {this.state.cityDisplay}
+                              </Text> : null
+                            }
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={{ flex : 1, minHeight : 50, justifyContent : "center", padding : 15, borderBottomWidth : 0.5, borderColor : "#C0C0C0"}}
-                            onPress={()=>this.handleOpenModal("categoryId")}>
+                            onPress={()=>this.handleOpenModal("Category", "categoryId")}>
                             <Text>
                                 Browse Categories
                             </Text>
+                            {
+                              this.state.categoryIdDisplay != null && this.state.categoryIdDisplay != "" ? <Text style={CommonStyle.selectedAdsFiltersText} >
+                                {this.state.categoryIdDisplay}
+                              </Text> : null
+                            }
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={{ flex : 1, minHeight : 50, justifyContent : "center", padding : 15, borderBottomWidth : 0.5, borderColor : "#C0C0C0"}}
-                            onPress={()=>this.handleOpenModal("subCategoryId")}>
+                            onPress={()=>this.handleOpenModal("Sub Category", "subCategoryId")}>
                             <Text>
                                 Browse Sub Categories
                             </Text>
+                            {
+                              this.state.subCategoryIdDisplay != null  && this.state.subCategoryIdDisplay != "" ? <Text style={CommonStyle.selectedAdsFiltersText} >
+                                {this.state.subCategoryIdDisplay}
+                              </Text> : null
+                            }
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={{ flex : 1, minHeight : 50, justifyContent : "center", padding : 15, borderBottomWidth : 0.5, borderColor : "#C0C0C0"}}
-                            onPress={()=>this.handleOpenModal("Search")}>
+                            onPress={()=>this.handleOpenModal("Search", "searchText")}>
                             <Text>
                                 Search for a specific product
                             </Text>
+                            {
+                              this.state.searchText != null && this.state.searchText != "" ? <Text style={CommonStyle.selectedAdsFiltersText} >
+                                {this.state.searchText}
+                              </Text> : null
+                            }
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={{ flex : 1, minHeight : 50, justifyContent : "center", padding : 15, borderBottomWidth : 0.5, borderColor : "#C0C0C0"}}
-                            onPress={()=>this.handleOpenModal("Posted")}>
-                            <Text>
-                                Posted by
-                            </Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={{ flex : 1, minHeight : 50, justifyContent : "center", padding : 15, borderBottomWidth : 0.5, borderColor : "#C0C0C0"}}
-                            onPress={()=>this.handleOpenModal("Condition")}>
+                            onPress={()=>this.handleOpenModal("Condition", "Condition")}>
                             <Text>
                                 Condition
                             </Text>
@@ -160,19 +207,16 @@ export default class AdsFilters extends Component {
 
                         <TouchableOpacity
                             style={{ flex : 1, minHeight : 50, justifyContent : "center", padding : 15, borderBottomWidth : 0.5, borderColor : "#C0C0C0"}}
-                            onPress={()=>this.handleOpenModal("Brand")}>
-                            <Text>
-                                Brand
-                            </Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={{ flex : 1, minHeight : 50, justifyContent : "center", padding : 15, borderBottomWidth : 0.5, borderColor : "#C0C0C0"}}
-                            onPress={()=>this.handleOpenModal("Price")}>
+                            onPress={()=>this.handleOpenModal("Price", "Price")}>
                             <Text>
                                 Price Range
                             </Text>
-                        </TouchableOpacity>
+                            {
+                              this.state.amountRangeDisplay != null && this.state.amountRangeDisplay != "" ? <Text style={CommonStyle.selectedAdsFiltersText} >
+                                {this.state.amountRangeDisplay}
+                              </Text> : null
+                            }
+                            </TouchableOpacity>
 
                     </ScrollView>
                 </View>
