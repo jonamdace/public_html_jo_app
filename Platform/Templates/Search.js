@@ -53,7 +53,10 @@ export default class Search extends Component {
             width: width,
             searchText: "",
             ds: ds,
+            city : "",
+            amountRange : "",
             categoryId: 3,
+            subCategoryId : "",
             listItems: ds.cloneWithRows([]),
             searchResultJson: {},
             page: "0",
@@ -84,7 +87,7 @@ export default class Search extends Component {
         this.props.navigation.setParams({ handleOpenModal: ()=>this.handleOpenModal() });
 
         //var paramsArray = this.props.value;
-	var paramsArray = this.props.navigation.state.params;
+    	var paramsArray = this.props.navigation.state.params;
         var searchUserId = await AsyncStorage.getItem('userid');
 
 		this.setState({
@@ -93,8 +96,18 @@ export default class Search extends Component {
         if (paramsArray != null) {
             var searchText = this.getValueFromArray(paramsArray, 'searchText');
             var categoryId = this.getValueFromArray(paramsArray, 'categoryId');
-		//alert("searchText "+ searchText + "categoryId "+ categoryId+ "searchUserId "+ searchUserId)
-            await this.setState({categoryId: categoryId, searchText: searchText, searchUserId : searchUserId});
+            var subCategoryId = this.getValueFromArray(paramsArray, 'subCategoryId');
+            var city = this.getValueFromArray(paramsArray, 'city');
+            var amountRange = this.getValueFromArray(paramsArray, 'amountRange');
+		    //alert("searchText "+ searchText + "categoryId "+ categoryId+ "searchUserId "+ searchUserId + " amountRange " +amountRange)
+            await this.setState({
+                amountRange: amountRange,
+                city: city,
+                categoryId: categoryId,
+                searchText: searchText,
+                searchUserId : searchUserId,
+                subCategoryId : subCategoryId
+            });
         }
         await this.dataLoading();
     }
@@ -137,9 +150,10 @@ export default class Search extends Component {
         var postJson = new FormData();
         postJson.append("page", that.state.page);
         postJson.append("getListFromPage", "adsList");
-        postJson.append("city", "");
+        postJson.append("amountRange", this.state.amountRange);
+        postJson.append("city", this.state.city);
         postJson.append("categoryId", this.state.categoryId);
-        postJson.append("SubcategoryId", "");
+        postJson.append("SubcategoryId", this.state.subCategoryId);
         postJson.append("searchText", this.state.searchText);
         postJson.append("searchUserId", "");
         postJson.append("userid", this.state.searchUserId);

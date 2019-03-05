@@ -30,7 +30,8 @@ export default class AdsFilters extends Component {
                 style={{marginRight: 16}}
                 onPress={()=>handleClear()}>
                 <Text style={{ paddingRight : 15, color : "#FFF", fontSize : 18}}>Clear All</Text>
-            </TouchableOpacity>
+            </TouchableOpacity>,
+            //headerLeft: null
         }
     }
 
@@ -52,6 +53,18 @@ export default class AdsFilters extends Component {
         this.handleClear = this.handleClear.bind(this);
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.onPressToDone = this.onPressToDone.bind(this);
+        this.navigate=this.props.navigation.navigate;
+    }
+
+    onPressToApply() {
+      var jsondata = {
+          amountRange : this.state.amountRange,
+          city: this.state.city,
+          categoryId: this.state.categoryId,
+          searchText: this.state.searchText,
+          subCategoryId: this.state.subCategoryId
+      };
+      this.props.navigation.push("Search", jsondata );
     }
 
     onPressToDone() {
@@ -95,7 +108,7 @@ export default class AdsFilters extends Component {
             }
         }
 
-        alert("ref" + JSON.stringify(this.refs.adsFilter.returnStateArray()))
+      //  alert("ref" + JSON.stringify(this.refs.adsFilter.returnStateArray()))
     }
 
     handleClear(){
@@ -197,13 +210,17 @@ export default class AdsFilters extends Component {
                             }
                         </TouchableOpacity>
 
-                        <TouchableOpacity
-                            style={{ flex : 1, minHeight : 50, justifyContent : "center", padding : 15, borderBottomWidth : 0.5, borderColor : "#C0C0C0"}}
-                            onPress={()=>this.handleOpenModal("Condition", "Condition")}>
-                            <Text>
-                                Condition
-                            </Text>
-                        </TouchableOpacity>
+                        {
+                            /*
+                             <TouchableOpacity
+                             style={{ flex : 1, minHeight : 50, justifyContent : "center", padding : 15, borderBottomWidth : 0.5, borderColor : "#C0C0C0"}}
+                             onPress={()=>this.handleOpenModal("Condition", "Condition")}>
+                             <Text>
+                             Condition
+                             </Text>
+                             </TouchableOpacity>
+                             */
+                        }
 
                         <TouchableOpacity
                             style={{ flex : 1, minHeight : 50, justifyContent : "center", padding : 15, borderBottomWidth : 0.5, borderColor : "#C0C0C0"}}
@@ -222,12 +239,16 @@ export default class AdsFilters extends Component {
                 </View>
                 <View  style={{ backgroundColor : "#FFF", borderTopWidth : 1, borderColor : "#C0C0C0", height : 60, alignItems : "center", paddingHorizontal : 10, flexDirection : "row" }}>
                     <View style={{ flex : 100}}>
-                        <Text>
-                            100 results
-                        </Text>
+                        {
+                            /*
+                             <Text>
+                             100 results
+                             </Text>
+                             */
+                        }
                     </View>
                     <View style={{width : 120}}>
-                        <MKButton onPress={()=> alert(2)} style={{backgroundColor : '#59C2AF', borderColor: '#59C2AF', height:40}} textStyle={{color: '#FFF'}} activityIndicatorColor={'orange'} >
+                        <MKButton onPress={()=> this.onPressToApply()} style={{backgroundColor : '#59C2AF', borderColor: '#59C2AF', height:40}} textStyle={{color: '#FFF'}} activityIndicatorColor={'orange'} >
                             APPLY
                         </MKButton>
                     </View>

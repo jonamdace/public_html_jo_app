@@ -314,19 +314,19 @@ if(this.props.searchKey == "searchText"){
   var inputFontSize = 16;
   var inputHighlightColor = "#00BCD4";
 
-  listData = <View style={{padding : 20}}>
-  <MKTextInput label={'Search here...'} highlightColor={inputHighlightColor}
+  listData = <View style={{paddingLeft : 20, paddingRight : 20, paddingBottom : 20}}>
+  <MKTextInput label={'Search Your Product'} highlightColor={inputHighlightColor}
                multiline={true}
                onChangeText={(radioSelectedValue) => that.setState({radioSelectedValue : radioSelectedValue, radioSelected : radioSelectedValue})}
                inputStyle={{fontSize: inputFontSize,  height: inputHeight, width: inputWidth,paddingBottom : -10}}
                returnKeyType={'next'} ref="searchText"
       />
-
       </View>
 }
 
         if(this.props.searchKey == "Price"){
-          listData = <View style={{ height : 100, alignItems : "center", paddingHorizontal : 25}}>
+          listData = <View style={{  padding : 25}}>
+          <View style={{  alignItems : "center"}}>
           <MultiSlider
             values={[
               this.state.multiSliderValue[0],
@@ -339,9 +339,11 @@ if(this.props.searchKey == "searchText"){
             step={1}
             snapped
             />
-
+          </View>
             <View style={{flexDirection : "row"}}>
-            <Text style={{textAlign : "right", fontWeight : "bold", color : "#000"}}>{"₹"+this.state.multiSliderValue[0] + "  To  ₹"+this.state.multiSliderValue[1]}</Text>
+            <Text style={{fontSize: 10, flex : 45, textAlign : "left", fontWeight : "bold", color : "gray"}}>{"₹"+this.state.multiSliderValue[0]}</Text>
+            <Text style={{fontSize: 10, flex : 10, textAlign : "center", fontWeight : "bold", color : "gray"}}>To</Text>
+            <Text style={{fontSize: 10, flex : 45, textAlign : "right", fontWeight : "bold", color : "gray"}}>{"₹"+this.state.multiSliderValue[1]}</Text>
             </View>
           </View>;
         }
@@ -350,8 +352,8 @@ if(this.props.searchKey == "searchText"){
 
         return(
             <View style={{ height : height, width : width, flex : 1}}>
-                <View style={{height : 50, backgroundColor: 'orange',width : width,  paddingHorizontal : 15, justifyContent : "center" }}>
-                       <Text style={{alignItems : "center", fontWeight : "bold", color : "#FFF"}}>{that.state.searchName}</Text>
+                <View style={{height : 55, backgroundColor: 'orange',width : width,  paddingHorizontal : 15, justifyContent : "center" }}>
+                       <Text style={{alignItems : "center", fontWeight : "bold", color : "#FFF", fontSize : 18}}>{that.state.searchName}</Text>
                 </View>
                 <View  style={{ justifyContent : "center", flex : 100}}>
                     <ScrollView style={{backgroundColor : "#FFF"}}>
@@ -363,9 +365,14 @@ if(this.props.searchKey == "searchText"){
                 </View>
                 <View  style={{ backgroundColor : "#FFF", borderTopWidth : 1, borderColor : "#C0C0C0", height : 60, alignItems : "center", paddingHorizontal : 10, flexDirection : "row" }}>
                     <View style={{ flex : 100}}>
-                        <Text>
-                            {this.state.noOfItemSelected} selected
-                        </Text>
+                        {
+                            /*
+                             <Text>
+                             {this.state.noOfItemSelected} selected
+                             </Text>
+                             */
+                        }
+
                     </View>
                     <View style={{width : 120}}>
                         <MKButton onPress={()=> this.props.onPressToDone() } style={{backgroundColor : '#000', borderColor: '#59C2AF', height:40}} textStyle={{color: '#FFF'}} activityIndicatorColor={'orange'} >
